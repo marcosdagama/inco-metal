@@ -1,688 +1,329 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INCO — Metallurgical Engineering & Equipment</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --steel:#1a2332; --steel-mid:#243348;
-  --red:#c8102e; --red-dk:#a00d24;
-  --amber:#e8a020;
-  --white:#f5f2ee; --gray:#8a9aae; --lt:#edeae5;
-  --r:2px; --nh:76px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Source Sans 3',sans-serif;background:var(--white);color:var(--steel);font-size:17px;line-height:1.65}
-
-/* ── LOGO ── */
-.logo-wrap{display:flex;align-items:center;gap:0;text-decoration:none}
-.logo-inco{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;font-style:italic;color:var(--red);letter-spacing:0;line-height:1}
-.logo-divider{width:1px;height:36px;background:rgba(255,255,255,.18);margin:0 14px}
-.logo-sub{font-family:'Source Sans 3',sans-serif;font-size:9.5px;font-weight:400;letter-spacing:1.4px;text-transform:uppercase;color:rgba(245,242,238,.45);line-height:1.5;max-width:115px}
-
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--steel);height:var(--nh);display:flex;align-items:center;padding:0 44px;gap:28px;border-bottom:3px solid var(--red)}
-.nav-links{display:flex;gap:30px;list-style:none;margin-left:auto;align-items:center}
-.nav-links a{color:var(--white);text-decoration:none;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;opacity:.65;transition:.22s;padding:4px 0;border-bottom:2px solid transparent}
-.nav-links a:hover,.nav-links a.active{opacity:1;color:var(--amber);border-bottom-color:var(--amber)}
-.lang-sw{display:flex;gap:6px;align-items:center;border-left:1px solid rgba(255,255,255,.14);padding-left:22px;margin-left:6px}
-.lb{background:none;border:1px solid rgba(255,255,255,.22);color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:4px 9px;cursor:pointer;border-radius:2px;transition:.2s}
-.lb:hover,.lb.active{background:var(--amber);border-color:var(--amber);color:var(--steel)}
-.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;margin-left:auto}
-.hbg span{display:block;width:26px;height:2px;background:var(--white)}
-
-/* ── HERO ── */
-#hero{margin-top:var(--nh);min-height:calc(100vh - var(--nh));display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
-.hl{background:var(--steel);padding:80px 64px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
-.hl::after{content:'';position:absolute;right:-44px;top:0;bottom:0;width:88px;background:var(--steel);clip-path:polygon(0 0,0 100%,100% 100%);z-index:3}
-.h-kicker{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--amber);margin-bottom:18px;display:flex;align-items:center;gap:12px}
-.h-kicker::before{content:'';display:block;width:32px;height:2px;background:var(--amber)}
-.h-title{font-family:'Playfair Display',serif;font-size:clamp(38px,4.5vw,62px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:24px}
-.h-title em{font-style:italic;color:var(--amber)}
-.h-desc{color:rgba(245,242,238,.68);font-size:16.5px;font-weight:300;max-width:420px;margin-bottom:44px;line-height:1.72}
-.h-ctas{display:flex;gap:16px;flex-wrap:wrap}
-.btn-p{display:inline-block;background:var(--red);color:#fff;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:14px 30px;border-radius:var(--r);transition:.2s}
-.btn-p:hover{background:var(--red-dk);transform:translateY(-1px)}
-.btn-o{display:inline-block;border:2px solid rgba(255,255,255,.38);color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:12px 30px;border-radius:var(--r);transition:.2s}
-.btn-o:hover{border-color:var(--amber);color:var(--amber)}
-.hr{position:relative;overflow:hidden}
-.ss{position:absolute;inset:0}
-.ss img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
-.ss img.on{opacity:1}
-.ss::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(26,35,50,.38),transparent)}
-
-/* ── STATS ── */
-.stats{background:var(--amber);padding:26px 64px;display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:20px}
-.stat{text-align:center}
-.sn{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--steel);line-height:1}
-.sl{font-family:'Source Sans 3',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(26,35,50,.65);margin-top:4px}
-.ssep{width:1px;height:48px;background:rgba(26,35,50,.18)}
-
-/* ── SECTIONS ── */
-section{padding:100px 64px}
-.alt{background:var(--lt)}
-.stag{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.stag::before{content:'';display:block;width:32px;height:2px;background:var(--red)}
-.stitle{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,48px);font-weight:700;color:var(--steel);line-height:1.1;margin-bottom:20px}
-.stitle em{font-style:italic;color:var(--red)}
-.ssub{font-size:16.5px;font-weight:300;color:#4a5a70;max-width:580px;line-height:1.75}
-
-/* ── ABOUT ── */
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:64px}
-.ai{position:relative}
-.ai img{width:100%;height:480px;object-fit:cover;border-radius:var(--r)}
-.aib{position:absolute;bottom:-24px;right:-24px;background:var(--red);padding:24px 28px;text-align:center}
-.aib .n{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:#fff;line-height:1}
-.aib .l{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.75)}
-.ac p{font-size:16.5px;font-weight:300;color:#4a5a70;line-height:1.8;margin-bottom:16px}
-.chk{list-style:none;margin:28px 0 36px;display:flex;flex-direction:column;gap:14px}
-.chk li{display:flex;align-items:flex-start;gap:14px;font-size:15.5px;color:#3a4a60}
-.chk li::before{content:'';display:block;width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:7px}
-.qb{background:var(--steel);border-left:5px solid var(--red);padding:32px 40px;margin-top:32px;border-radius:var(--r)}
-.qb h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--amber);margin-bottom:12px}
-.qb p{color:rgba(245,242,238,.73);font-size:15.5px;line-height:1.75}
-
-/* ── CAPABILITIES ── */
-.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px;background:#c5bfb5}
-.cc{background:var(--white);padding:40px 36px;transition:background .28s;cursor:default}
-.cc:hover{background:var(--steel)}
-.cc:hover .ct,.cc:hover .ctx{color:var(--white)}
-.cc:hover .ci svg{stroke:#fff}
-/* icon: single steel color, white on hover */
-.ci{display:block;margin-bottom:18px;width:40px;height:40px}
-.ci svg{width:40px;height:40px;stroke:var(--steel);stroke-width:1.6;fill:none;transition:stroke .28s}
-.cc:hover .ci svg{stroke:#fff}
-.ct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--steel);margin-bottom:12px;transition:color .28s}
-.ctx{font-size:14.5px;font-weight:300;color:#5a6a80;line-height:1.72;transition:color .28s}
-
-/* ── PROJECTS ── */
-.pcat{display:flex;flex-wrap:wrap;gap:10px;margin:52px 0 32px}
-.catbtn{font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:9px 20px;border:2px solid #c5bfb5;background:transparent;color:#5a6a80;cursor:pointer;border-radius:var(--r);transition:.2s}
-.catbtn:hover,.catbtn.active{border-color:var(--red);background:var(--red);color:#fff}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pc{position:relative;overflow:hidden;border-radius:var(--r);aspect-ratio:4/3;cursor:pointer;background:var(--steel-mid);display:none}
-.pc.on{display:block}
-.pc img{width:100%;height:100%;object-fit:cover;transition:transform .55s,opacity .3s;opacity:.87}
-.pc:hover img{transform:scale(1.07);opacity:.52}
-.po{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,35,50,.96) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px 20px;transition:.3s}
-.pc:hover .po{background:linear-gradient(to top,rgba(26,35,50,.98) 0%,rgba(26,35,50,.42) 100%)}
-.ptag{font-family:'Source Sans 3',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:5px}
-.ptit{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:9px}
-.pmore{display:inline-flex;align-items:center;gap:5px;color:var(--amber);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0;transform:translateY(5px);transition:.32s}
-.pc:hover .pmore{opacity:1;transform:translateY(0)}
-.pmore::after{content:'→'}
-
-/* ── MODAL ── */
-.mover{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,16,26,.88);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:24px}
-.mover.open{display:flex}
-.mbox{background:var(--white);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;border-radius:var(--r);position:relative;animation:mIn .3s ease}
-@keyframes mIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.mcls{position:absolute;top:16px;right:20px;background:var(--steel);color:#fff;border:none;width:36px;height:36px;font-size:18px;cursor:pointer;border-radius:var(--r);z-index:5;line-height:36px;text-align:center;transition:.2s}
-.mcls:hover{background:var(--red)}
-.mimg{width:100%;height:340px;object-fit:cover}
-.mbody{padding:42px}
-.mtag{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:9px}
-.mtit{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,34px);font-weight:700;color:var(--steel);margin-bottom:20px;line-height:1.12}
-.mdesc{font-size:15.5px;font-weight:300;color:#4a5a70;line-height:1.8;margin-bottom:30px}
-.mspecs{list-style:none;display:flex;flex-direction:column;gap:11px;border-top:2px solid var(--lt);padding-top:26px;margin-bottom:28px}
-.mspecs li{display:flex;gap:13px;font-size:14.5px;color:#3a4a60;align-items:flex-start}
-.mspecs li::before{content:'';display:block;width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:6px}
-.mvimeo a{display:inline-flex;align-items:center;gap:9px;background:var(--steel);color:#fff;padding:13px 24px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;border-radius:var(--r);transition:.2s}
-.mvimeo a:hover{background:var(--red)}
-.mvimeo a::before{content:'▶';color:var(--amber);margin-right:2px}
-
-/* ── CONTACT ── */
-.cong{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:64px;align-items:start}
-.cit{display:flex;align-items:flex-start;gap:16px;margin-bottom:32px}
-.cion{width:48px;height:48px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:var(--r)}
-.cion svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none}
-.clbl{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
-.cval{font-size:16.5px;font-weight:500;color:var(--steel);text-decoration:none}
-a.cval:hover{color:var(--red)}
-.offs{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap}
-.ofc{flex:1;min-width:170px;border-left:3px solid var(--red);padding-left:16px}
-.ofcity{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--steel);margin-bottom:4px}
-.ofdet{font-size:13.5px;color:#5a6a80;line-height:1.65}
-.fg{margin-bottom:20px}
-.fl{display:block;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
-.fi,.fsl,.fta{width:100%;border:1.5px solid #d0ccc4;background:var(--white);color:var(--steel);font-family:'Source Sans 3',sans-serif;font-size:15.5px;padding:12px 16px;border-radius:var(--r);transition:.2s;outline:none}
-.fi:focus,.fsl:focus,.fta:focus{border-color:var(--red)}
-.fta{min-height:130px;resize:vertical}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.fsub{width:100%;padding:16px;background:var(--steel);color:#fff;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;border-radius:var(--r);transition:.2s}
-.fsub:hover{background:var(--red)}
-
-/* ── FOOTER ── */
-footer{background:var(--steel);padding:64px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:52px}
-.fcolt{font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
-.flinks{list-style:none;display:flex;flex-direction:column;gap:11px}
-.flinks a{color:rgba(245,242,238,.58);text-decoration:none;font-size:14.5px;transition:.2s}
-.flinks a:hover{color:var(--white)}
-.ftag{font-size:13.5px;color:rgba(245,242,238,.4);line-height:1.65;max-width:220px;margin-top:12px}
-.fbot{background:#0f1720;padding:20px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.fcp{font-size:12px;color:rgba(245,242,238,.38)}
-.fleg{display:flex;gap:22px}
-.fleg a{font-size:12px;color:rgba(245,242,238,.38);text-decoration:none}
-.fleg a:hover{color:var(--amber)}
-
-/* ── MOBILE ── */
-@media(max-width:900px){
-  nav{padding:0 24px}.nav-links,.lang-sw{display:none}.hbg{display:flex}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nh);left:0;right:0;background:var(--steel);padding:24px;gap:16px;border-bottom:3px solid var(--red)}
-  .lang-sw.open{display:flex;padding:0 24px 24px}
-  #hero{grid-template-columns:1fr;min-height:auto}.hl{padding:64px 24px}.hl::after{display:none}.hr{height:300px}
-  .stats{padding:20px 24px}.ssep{display:none}
-  section{padding:64px 24px}
-  .ag{grid-template-columns:1fr;gap:52px}.aib{right:16px;bottom:-16px}
-  .cg{grid-template-columns:1fr 1fr}.pgrid{grid-template-columns:1fr 1fr}
-  .cong{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
-  footer{grid-template-columns:1fr;padding:44px 24px;gap:36px}.fbot{padding:20px 24px}
-}
-@media(max-width:600px){.cg{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.mimg{height:200px}.mbody{padding:24px 20px}.h-title{font-size:34px}}
-/* I18N */
-[data-lang]{display:none}[data-lang].active{display:block}
-/* REVEAL */
-.rev{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.rev.vis{opacity:1;transform:none}
-.rev:nth-child(2){transition-delay:.1s}.rev:nth-child(3){transition-delay:.2s}
-.rev:nth-child(4){transition-delay:.3s}.rev:nth-child(5){transition-delay:.4s}.rev:nth-child(6){transition-delay:.5s}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INCO — Metallurgical Process Engineering</title>
+<meta name="description" content="INCO engineers and builds custom lines for ferrous and non-ferrous metals: coil processing, rolling, casting and continuous casting. Barcelona · Geneva.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#F3F1EC">
+<meta name="author" content="S.A. de Ingeniería y Construcción Mecánica">
+<link rel="alternate" hreflang="en" href="https://marcosdagama.github.io/inco-metal/">
+<link rel="alternate" hreflang="es" href="https://marcosdagama.github.io/inco-metal/es/">
+<link rel="alternate" hreflang="x-default" href="https://marcosdagama.github.io/inco-metal/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="INCO">
+<meta property="og:title" content="INCO — Metallurgical Process Engineering">
+<meta property="og:description" content="INCO engineers and builds custom lines for ferrous and non-ferrous metals: coil processing, rolling, casting and continuous casting. Barcelona · Geneva.">
+<meta property="og:url" content="https://marcosdagama.github.io/inco-metal/">
+<meta property="og:image" content="https://marcosdagama.github.io/inco-metal/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/playfair-display-latin-900-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/newsreader-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){try{var s=localStorage.getItem('inco-lang');var n=(navigator.languages&&navigator.languages[0])||navigator.language||'';if(s==='es'||(!s&&/^(es|ca|gl|eu)\b/i.test(n))){location.replace('es/index.html'+location.search+location.hash);}}catch(e){}})();</script>
 </head>
+
 <body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="INCO — home"><b>INCO</b><i aria-hidden="true"></i><span>Engineering &amp;<br>Mechanical Construction</span></a>
+    <ul class="nav"><li><a href="#company">Company</a></li><li><a href="#capabilities">Capabilities</a></li><li><a href="#process">Process</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+    <div class="lang" role="group" aria-label="Language"><a href="#" hreflang="en" lang="en" data-setlang="en" aria-current="true">EN</a><a href="es/index.html" hreflang="es" lang="es" data-setlang="es">ES</a></div>
+    <button class="menu-btn" aria-expanded="false" aria-label="Menu"><i></i></button>
+  </div>
+</header>
 
-<!-- NAV -->
-<nav id="nb">
-  <a href="#home" class="logo-wrap">
-    <span class="logo-inco">INCO</span>
-    <div class="logo-divider"></div>
-    <span class="logo-sub">Ingeniería y Construcción Mecánica</span>
-  </a>
-  <button class="hbg" onclick="tmenu()" aria-label="Menu"><span></span><span></span><span></span></button>
-  <ul class="nav-links" id="nl">
-    <li><a href="#home" class="active" onclick="nc(this)"><span data-lang="en" class="active">Home</span><span data-lang="es">Inicio</span><span data-lang="fr">Accueil</span></a></li>
-    <li><a href="#about" onclick="nc(this)"><span data-lang="en" class="active">Company</span><span data-lang="es">Empresa</span><span data-lang="fr">Société</span></a></li>
-    <li><a href="#caps" onclick="nc(this)"><span data-lang="en" class="active">Capabilities</span><span data-lang="es">Capacidades</span><span data-lang="fr">Capacités</span></a></li>
-    <li><a href="#projects" onclick="nc(this)"><span data-lang="en" class="active">Projects</span><span data-lang="es">Proyectos</span><span data-lang="fr">Projets</span></a></li>
-    <li><a href="#contact" onclick="nc(this)"><span data-lang="en" class="active">Contact</span><span data-lang="es">Contacto</span><span data-lang="fr">Contact</span></a></li>
-  </ul>
-  <div class="lang-sw" id="ls">
-    <button class="lb active" onclick="sl('en')">EN</button>
-    <button class="lb" onclick="sl('es')">ES</button>
-    <button class="lb" onclick="sl('fr')">FR</button>
-  </div>
-</nav>
+<main id="main">
 
-<!-- HERO -->
-<section id="home" style="padding:0">
-<div id="hero">
-  <div class="hl">
-    <div class="h-kicker"><span data-lang="en" class="active">Metallurgical Engineering &amp; Equipment</span><span data-lang="es">Ingeniería y Equipos Metalúrgicos</span><span data-lang="fr">Génie Métallurgique &amp; Équipements</span></div>
-    <h1 class="h-title">
-      <span data-lang="en" class="active">Engineering <em>Metal</em> Solutions for Industry</span>
-      <span data-lang="es">Soluciones de <em>Ingeniería</em> Metalúrgica para la Industria</span>
-      <span data-lang="fr">Solutions de <em>Génie</em> Métallurgique pour l'Industrie</span>
-    </h1>
-    <p class="h-desc">
-      <span data-lang="en" class="active">Custom-engineered lines for ferrous and non-ferrous metals. From coil processing to continuous casting — built to your exact requirements.</span>
-      <span data-lang="es">Líneas diseñadas a medida para metales férricos y no férricos. Del procesado de bobinas a la colada continua — construidas según sus necesidades exactas.</span>
-      <span data-lang="fr">Lignes conçues sur mesure pour métaux ferreux et non ferreux. Du traitement de bobines à la coulée continue — selon vos exigences précises.</span>
-    </p>
-    <div class="h-ctas">
-      <a href="#projects" class="btn-p"><span data-lang="en" class="active">View Projects</span><span data-lang="es">Ver Proyectos</span><span data-lang="fr">Voir Projets</span></a>
-      <a href="#contact" class="btn-o"><span data-lang="en" class="active">Get in Touch</span><span data-lang="es">Contactar</span><span data-lang="fr">Nous Contacter</span></a>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="rv">
+        <p class="eyebrow">Metallurgical process engineering</p>
+        <h1>Lines built <em>around</em> metal.</h1>
+        <p class="lede">We design, manufacture and commission custom process lines for steel, aluminium and copper — from coil processing to continuous casting, engineered to each client&#x27;s production targets.</p>
+        <div class="cta">
+          <a class="btn btn-dark" href="#projects">See reference projects <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
+          <a class="btn btn-line" href="#contact">Discuss a project</a>
+        </div>
+      </div>
+      <figure class="hero-fig rv">
+        <div class="duo"><img src="https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg" alt="Coil processing line" fetchpriority="high"></div>
+        <figcaption class="fig-cap"><span>Coil processing line</span><span>Fig. 01</span></figcaption>
+      </figure>
     </div>
+    <div class="stats rv"><div class="stat"><b>40+</b><span>years of process engineering</span></div><div class="stat"><b>10</b><span>product lines</span></div><div class="stat"><b>2</b><span>offices — Barcelona &amp; Geneva</span></div><div class="stat"><b>100%</b><span>custom-engineered</span></div></div>
   </div>
-  <div class="hr">
-    <div class="ss" id="ss">
-      <!-- Industrial metal / coil / rolling mill images from Unsplash (free) -->
-      <img src="https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg?w=1200&q=82&fit=crop&crop=center" alt="Industrial coil processing line" class="on">
-      <img src="https://cdn.shortpixel.ai/spai/q_lossy+w_2280+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg" alt="Large aluminium flat coils">
-      <img src="https://www.sst.net/wp-content/uploads/2016/02/quenching-1024x782.jpg" alt="Factory automation machinery">
-      <img src="https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg" alt="Metal sheet rolling equipment">
-      <img src="https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png" alt="Industrial engineering plant">
-    </div>
-  </div>
-</div>
 </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat"><div class="sn">40+</div><div class="sl"><span data-lang="en" class="active">Years of Experience</span><span data-lang="es">Años de Experiencia</span><span data-lang="fr">Ans d'Expérience</span></div></div>
-  <div class="ssep"></div>
-  <div class="stat"><div class="sn">10</div><div class="sl"><span data-lang="en" class="active">Product Lines</span><span data-lang="es">Líneas de Producto</span><span data-lang="fr">Lignes de Produit</span></div></div>
-  <div class="ssep"></div>
-  <div class="stat"><div class="sn">2</div><div class="sl"><span data-lang="en" class="active">European Offices</span><span data-lang="es">Oficinas Europeas</span><span data-lang="fr">Bureaux Européens</span></div></div>
-  <div class="ssep"></div>
-  <div class="stat"><div class="sn">100%</div><div class="sl"><span data-lang="en" class="active">Custom Engineering</span><span data-lang="es">Ingeniería a Medida</span><span data-lang="fr">Ingénierie Sur Mesure</span></div></div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="stag"><span data-lang="en" class="active">Who We Are</span><span data-lang="es">Quiénes Somos</span><span data-lang="fr">Qui Sommes-Nous</span></div>
-  <h2 class="stitle"><span data-lang="en" class="active">Specialists in Metallurgical Process Engineering</span><span data-lang="es">Especialistas en Ingeniería de Procesos Metalúrgicos</span><span data-lang="fr">Spécialistes en Ingénierie des Procédés Métallurgiques</span></h2>
-  <div class="ag">
-    <div class="ai rev">
-      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=85&fit=crop&crop=center" alt="Large flat aluminium coils — product of INCO lines">
-      <div class="aib"><div class="n">40+</div><div class="l"><span data-lang="en" class="active">Years</span><span data-lang="es">Años</span><span data-lang="fr">Ans</span></div></div>
-    </div>
-    <div class="ac rev">
-      <p><span data-lang="en" class="active">INCO is a group of companies specialised in engineering and manufacturing equipment for metallurgical processes — covering both ferrous and non-ferrous metals. Our core expertise lies in flat-product (coil) transformation lines, as well as casting and continuous-casting processes for non-ferrous metals such as aluminium and copper.</span><span data-lang="es">INCO es un grupo de empresas especializadas en la ingeniería y fabricación de equipos para procesos metalúrgicos, tanto de metales férricos como no férricos. Nuestra especialidad principal son las líneas de transformación de productos planos (bobinas), así como los procesos de fundición y colada continua para metales no ferrosos como el aluminio y el cobre.</span><span data-lang="fr">INCO est un groupe de sociétés spécialisées dans l'ingénierie et la fabrication d'équipements pour les procédés métallurgiques — couvrant les métaux ferreux et non ferreux. Notre cœur de métier : les lignes de transformation de produits plats (bobines) et les procédés de fonderie et coulée continue pour les métaux non ferreux.</span></p>
-      <p><span data-lang="en" class="active">Years of close client collaboration have led to the development of unique, one-of-a-kind processes and machinery that deliver measurable competitive advantage. Our multidisciplinary Technical Office brings expertise across metals and processes, always shaped by each client's specific production targets.</span><span data-lang="es">Años de estrecha colaboración con clientes han dado lugar a procesos y maquinaria únicos en el mundo que proporcionan ventajas competitivas medibles. Nuestra Oficina Técnica multidisciplinar reúne experiencia en diferentes metales y procesos, siempre orientada a los objetivos productivos concretos de cada cliente.</span><span data-lang="fr">Des années de collaboration étroite ont abouti à des procédés et machines uniques au monde offrant un avantage concurrentiel mesurable. Notre Bureau Technique multidisciplinaire réunit une expertise transversale, toujours orientée par les objectifs de production de chaque client.</span></p>
-      <ul class="chk">
-        <li><span data-lang="en" class="active">Every proposal is technically and economically viable in a competitive global market</span><span data-lang="es">Cada propuesta es técnica y económicamente viable en un mercado global competitivo</span><span data-lang="fr">Chaque proposition est techniquement et économiquement viable dans un marché mondial compétitif</span></li>
-        <li><span data-lang="en" class="active">Machinery precisely matched to the client's process requirements and output targets</span><span data-lang="es">Maquinaria precisamente adaptada a los requisitos del proceso y objetivos de producción del cliente</span><span data-lang="fr">Machines précisément adaptées aux exigences de processus et objectifs du client</span></li>
-        <li><span data-lang="en" class="active">Process value-add ensures a solid and measurable return on investment</span><span data-lang="es">El valor añadido del proceso garantiza un retorno de inversión sólido y medible</span><span data-lang="fr">La valeur ajoutée du procédé garantit un retour sur investissement solide et mesurable</span></li>
-      </ul>
-      <div class="qb">
-        <h4><span data-lang="en" class="active">Quality Policy</span><span data-lang="es">Política de Calidad</span><span data-lang="fr">Politique Qualité</span></h4>
-        <p><span data-lang="en" class="active">Quality is embedded at every stage of our engineering process. Each project undergoes multidisciplinary review to ensure technical excellence, client satisfaction and long-term equipment reliability — from concept to commissioning.</span><span data-lang="es">La calidad está integrada en cada etapa de nuestro proceso de ingeniería. Cada proyecto pasa por una revisión multidisciplinaria para garantizar la excelencia técnica, la satisfacción del cliente y la fiabilidad del equipo a largo plazo.</span><span data-lang="fr">La qualité est intégrée à chaque étape. Chaque projet fait l'objet d'une révision multidisciplinaire pour garantir l'excellence technique, la satisfaction client et la fiabilité à long terme.</span></p>
+<section id="company">
+  <div class="wrap">
+    <div class="about">
+      <div class="rv">
+        <p class="eyebrow"><span class="n">01</span> Company</p>
+        <h2 style="margin:22px 0 40px">Specialists in metallurgical <em>process</em> engineering.</h2>
+        <div class="duo"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80&fit=crop" alt="" loading="lazy"></div>
+      </div>
+      <div class="about-txt rv">
+        <p>INCO is a group of companies that engineers and manufactures equipment for metallurgical processes, ferrous and non-ferrous.</p><p>Our core is flat-product (coil) transformation lines, along with casting and continuous casting for non-ferrous metals such as aluminium and copper. Years of close collaboration with clients have produced processes and machinery that exist nowhere else — and a multidisciplinary Technical Office that starts every project from the client&#x27;s production targets.</p>
+        <ul class="principles"><li><span>01</span>Every proposal is technically and economically viable in a competitive global market.</li><li><span>02</span>Machinery matched precisely to the process requirements and output targets.</li><li><span>03</span>Process value-add that delivers a solid, measurable return on investment.</li></ul>
+        <div class="quality"><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12"/><path d="M8.5 14.5l3.5 3.5 7.5-8"/></svg><div><h3>Quality policy</h3><p>Quality is built into every stage, from concept to commissioning. Each project goes through multidisciplinary review to secure technical excellence and long-term equipment reliability.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CAPABILITIES -->
-<!-- SVG icon set: single stroke color (var(--steel)), white on dark hover -->
-<section id="caps" class="alt">
-  <div class="stag"><span data-lang="en" class="active">What We Do</span><span data-lang="es">Lo Que Hacemos</span><span data-lang="fr">Ce Que Nous Faisons</span></div>
-  <h2 class="stitle"><span data-lang="en" class="active">Core Capabilities</span><span data-lang="es">Capacidades Principales</span><span data-lang="fr">Capacités Principales</span></h2>
-  <p class="ssub"><span data-lang="en" class="active">From design to installation and operator training — we cover the full lifecycle of metallurgical processing equipment.</span><span data-lang="es">Desde el diseño hasta la instalación y la formación — cubrimos el ciclo de vida completo del equipo de proceso metalúrgico.</span><span data-lang="fr">De la conception à l'installation et à la formation — nous couvrons le cycle de vie complet des équipements.</span></p>
-  <div class="cg">
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><rect x="4" y="17" width="32" height="6" rx="1"/><circle cx="10" cy="20" r="4"/><circle cx="20" cy="20" r="4"/><circle cx="30" cy="20" r="4"/><line x1="4" y1="12" x2="4" y2="17"/><line x1="36" y1="12" x2="36" y2="17"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Coil Processing Lines</span><span data-lang="es">Líneas de Procesado de Bobinas</span><span data-lang="fr">Lignes de Traitement Bobines</span></div>
-      <p class="ctx"><span data-lang="en" class="active">Painting, pickling, annealing, levelling and tension-levelling lines for aluminium, steel and copper coils across architecture, appliance and electronics sectors.</span><span data-lang="es">Líneas de pintura, decapado, recocido, aplanado y aplanado bajo tensión para bobinas de aluminio, acero y cobre en arquitectura, electrodomésticos y electrónica.</span><span data-lang="fr">Lignes de peinture, décapage, recuit, planage et planage sous tension pour bobines d'aluminium, acier et cuivre pour l'architecture, l'électroménager et l'électronique.</span></p>
+<section id="capabilities" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="eyebrow"><span class="n">02</span> Capabilities</p><h2>The full lifecycle of a <em>process line</em>.</h2></div>
+      <p class="lede">From the first feasibility study to operator training, one engineering team carries the project through.</p>
     </div>
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><rect x="6" y="8" width="8" height="24" rx="1"/><rect x="16" y="8" width="8" height="24" rx="1"/><rect x="26" y="8" width="8" height="24" rx="1"/><line x1="6" y1="20" x2="34" y2="20"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Rolling Mills</span><span data-lang="es">Laminadores</span><span data-lang="fr">Laminoirs</span></div>
-      <p class="ctx"><span data-lang="en" class="active">Reversible cold rolling mills, mini-mills and skin-pass mills for steel, aluminium, copper and special alloys. Strip widths up to 1,800 mm, speeds up to 1,500 m/min.</span><span data-lang="es">Laminadores reversibles en frío, mini-laminadores y skin pass para acero, aluminio, cobre y aleaciones especiales. Anchos hasta 1.800 mm, velocidades hasta 1.500 m/min.</span><span data-lang="fr">Laminoirs réversibles à froid, mini-laminoirs et skin-pass pour acier, aluminium, cuivre et alliages spéciaux. Largeurs jusqu'à 1 800 mm.</span></p>
-    </div>
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><path d="M8 32 C8 22 16 14 20 10 C24 14 32 22 32 32"/><path d="M14 32 C14 26 17 21 20 18 C23 21 26 26 26 32"/><line x1="8" y1="32" x2="32" y2="32"/><line x1="4" y1="36" x2="36" y2="36"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Casting &amp; Continuous Casting</span><span data-lang="es">Fundición y Colada Continua</span><span data-lang="fr">Fonderie et Coulée Continue</span></div>
-      <p class="ctx"><span data-lang="en" class="active">Complete melting, casting and continuous-casting sections for aluminium and copper — including hot rolling mill tandems and billet manufacturing plants.</span><span data-lang="es">Secciones completas de fusión, colada y colada continua para aluminio y cobre — incluyendo trenes de laminación en caliente y plantas de palanquillas.</span><span data-lang="fr">Sections complètes de fusion, coulée et coulée continue pour aluminium et cuivre — incluant trains de laminage à chaud et usines de billettes.</span></p>
-    </div>
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><polyline points="4,36 4,8 12,8"/><polyline points="12,4 12,36"/><polyline points="22,12 22,36"/><polyline points="32,16 32,36"/><line x1="4" y1="36" x2="36" y2="36"/><line x1="12" y1="8" x2="22" y2="12"/><line x1="22" y1="12" x2="32" y2="16"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Custom Engineering &amp; Design</span><span data-lang="es">Ingeniería y Diseño a Medida</span><span data-lang="fr">Ingénierie et Conception Sur Mesure</span></div>
-      <p class="ctx"><span data-lang="en" class="active">Our Technical Office engineers bespoke processes and machinery — delivering solutions that exist nowhere else in the world and give clients a lasting strategic edge.</span><span data-lang="es">Nuestra Oficina Técnica diseña procesos y maquinaria a medida — entregando soluciones únicas en el mundo que otorgan una ventaja estratégica duradera.</span><span data-lang="fr">Notre Bureau Technique conçoit des procédés et machines sur mesure — offrant des solutions uniques au monde qui donnent un avantage stratégique durable.</span></p>
-    </div>
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><rect x="4" y="28" width="32" height="6" rx="1"/><rect x="10" y="18" width="20" height="10"/><rect x="14" y="10" width="12" height="8"/><line x1="20" y1="4" x2="20" y2="10"/><polyline points="16,6 20,4 24,6"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Turnkey Installation</span><span data-lang="es">Instalación Llave en Mano</span><span data-lang="fr">Installation Clé en Main</span></div>
-      <p class="ctx"><span data-lang="en" class="active">End-to-end project management from manufacturing through on-site assembly, testing and full commissioning — with our engineering team present throughout.</span><span data-lang="es">Gestión integral del proyecto desde la fabricación hasta el montaje, pruebas y puesta en marcha — con nuestro equipo de ingeniería presente en todo momento.</span><span data-lang="fr">Gestion de projet de bout en bout, de la fabrication au montage sur site, aux tests et à la mise en service — avec notre équipe sur le terrain.</span></p>
-    </div>
-
-    <div class="cc rev">
-      <span class="ci">
-        <svg viewBox="0 0 40 40"><circle cx="20" cy="14" r="6"/><path d="M8 34 C8 26 12 22 20 22 C28 22 32 26 32 34"/><line x1="26" y1="8" x2="34" y2="4"/><line x1="26" y1="14" x2="34" y2="14"/><line x1="26" y1="20" x2="34" y2="24"/></svg>
-      </span>
-      <div class="ct"><span data-lang="en" class="active">Training &amp; After-Sales Support</span><span data-lang="es">Formación y Soporte Postventa</span><span data-lang="fr">Formation et Support Après-Vente</span></div>
-      <p class="ctx"><span data-lang="en" class="active">We train client operators and technicians to maximise throughput and equipment longevity from day one. Ongoing support and spare-parts availability guaranteed.</span><span data-lang="es">Formamos a operarios y técnicos del cliente para maximizar productividad y vida útil desde el primer día. Soporte continuo y disponibilidad de repuestos garantizados.</span><span data-lang="fr">Nous formons les opérateurs et techniciens du client pour maximiser la productivité et la longévité dès le premier jour. Support continu et pièces détachées garantis.</span></p>
-    </div>
-
+    <div class="caps"><article class="cap rv"><span class="num">01</span><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="11" cy="22" r="7"/><circle cx="11" cy="22" r="2.5"/><path d="M11 15h22M33 15v14M18 29h15"/><circle cx="33" cy="22" r="7"/></svg><h3>Coil processing lines</h3><p>Painting, pickling, annealing, levelling and tension-levelling lines for aluminium, steel and copper coils — for architecture, appliances and electronics.</p></article><article class="cap rv"><span class="num">02</span><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="11" r="6"/><circle cx="20" cy="29" r="6"/><path d="M2 20h36"/><path d="M8 4v32M32 4v32"/></svg><h3>Rolling mills</h3><p>Reversible cold mills, mini-mills and skin-pass mills for steel, aluminium, copper and special alloys. Widths up to 1,800 mm, speeds up to 1,500 m/min.</p></article><article class="cap rv"><span class="num">03</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6h14l-3 10H9z"/><path d="M13 16v6"/><path d="M8 22h10v4H8z"/><path d="M18 24h18M18 30h18"/><circle cx="24" cy="27" r="3"/></svg><h3>Casting &amp; continuous casting</h3><p>Melting, casting and continuous-casting sections for aluminium and copper, including hot-rolling tandems and billet plants.</p></article><article class="cap rv"><span class="num">04</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34L34 6"/><path d="M6 34h28V6"/><path d="M14 34v-4M22 34v-4M30 34v-4M34 14h-4M34 22h-4"/><circle cx="16" cy="16" r="5"/></svg><h3>Custom engineering</h3><p>Our Technical Office designs bespoke processes and machinery that give clients a lasting strategic edge.</p></article><article class="cap rv"><span class="num">05</span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 34h32"/><path d="M8 34V18l8-6v6l8-6v6l8-6v22"/><path d="M14 26h4v8h-4zM24 24h4v4h-4z"/></svg><h3>Turnkey installation</h3><p>Project management from manufacturing to on-site assembly, testing and commissioning, with our engineers present throughout.</p></article><article class="cap rv"><span class="num">06</span><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="13"/><circle cx="20" cy="20" r="5"/><path d="M20 7v8M20 25v8M7 20h8M25 20h8"/></svg><h3>Training &amp; after-sales</h3><p>Operator and maintenance training from day one, ongoing technical support and guaranteed spare-parts availability.</p></article></div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="stag"><span data-lang="en" class="active">Reference Work</span><span data-lang="es">Trabajos de Referencia</span><span data-lang="fr">Travaux de Référence</span></div>
-  <h2 class="stitle"><span data-lang="en" class="active">Projects by Category</span><span data-lang="es">Proyectos por Categoría</span><span data-lang="fr">Projets par Catégorie</span></h2>
-  <p class="ssub"><span data-lang="en" class="active">Browse our reference projects by technology area. Click any card to see full technical specifications.</span><span data-lang="es">Explore nuestros proyectos por área tecnológica. Haga clic en cualquier tarjeta para ver las especificaciones técnicas completas.</span><span data-lang="fr">Parcourez nos projets par domaine technologique. Cliquez sur une carte pour les spécifications techniques complètes.</span></p>
-
-  <div class="pcat">
-    <button class="catbtn active" onclick="fcat('all',this)"><span data-lang="en" class="active">All</span><span data-lang="es">Todos</span><span data-lang="fr">Tous</span></button>
-    <button class="catbtn" onclick="fcat('rolling',this)"><span data-lang="en" class="active">Rolling Mills</span><span data-lang="es">Laminadores</span><span data-lang="fr">Laminoirs</span></button>
-    <button class="catbtn" onclick="fcat('painting',this)"><span data-lang="en" class="active">Paint Lines</span><span data-lang="es">Líneas de Pintura</span><span data-lang="fr">Lignes de Peinture</span></button>
-    <button class="catbtn" onclick="fcat('pickling',this)"><span data-lang="en" class="active">Pickling</span><span data-lang="es">Decapado</span><span data-lang="fr">Décapage</span></button>
-    <button class="catbtn" onclick="fcat('levelling',this)"><span data-lang="en" class="active">Tension Levelling</span><span data-lang="es">Aplanado</span><span data-lang="fr">Planage</span></button>
-    <button class="catbtn" onclick="fcat('casting',this)"><span data-lang="en" class="active">Casting</span><span data-lang="es">Colada</span><span data-lang="fr">Coulée</span></button>
-    <button class="catbtn" onclick="fcat('aluminium',this)"><span data-lang="en" class="active">Aluminium</span><span data-lang="es">Aluminio</span><span data-lang="fr">Aluminium</span></button>
-    <button class="catbtn" onclick="fcat('service',this)"><span data-lang="en" class="active">Service Centres</span><span data-lang="es">Centros de Servicio</span><span data-lang="fr">Centres de Service</span></button>
-  </div>
-
-  <div class="pgrid" id="pg">
-
-    <div class="pc on" data-cats="levelling aluminium"
-      data-img="https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png?w=900&q=85&fit=crop"
-      data-tag-en="Aluminium · Architecture" data-tag-es="Aluminio · Arquitectura" data-tag-fr="Aluminium · Architecture"
-      data-title-en="Tension Levelling Line — Aluminium for Architecture"
-      data-title-es="Línea de Aplanado Bajo Tensión — Aluminio para Arquitectura"
-      data-title-fr="Ligne de Planage sous Tension — Aluminium pour Architecture"
-      data-desc-en="Custom tension levelling line for aluminium coils destined for architectural cladding. Achieves exceptional flatness tolerances required by high-end facade systems, processing strip widths up to 1,600 mm at 60–120 m/min. Delivered turnkey: decoiler, entry loop, multi-roll leveller, exit loop and recoiler."
-      data-desc-es="Línea de aplanado bajo tensión a medida para bobinas de aluminio para revestimiento arquitectónico. Alcanza tolerancias de planitud excepcionales para sistemas de fachada de alta gama, procesando anchos de hasta 1.600 mm a 60–120 m/min. Entregada llave en mano: desbobinador, lazo de entrada, aplanador multirodillo, lazo de salida y rebobinador."
-      data-desc-fr="Ligne de planage sous tension sur mesure pour bobines d'aluminium pour bardage architectural. Atteint des tolérances de planéité exceptionnelles pour les systèmes de façade haut de gamme, traitant des largeurs jusqu'à 1 600 mm à 60–120 m/min. Livrée clé en main : dévidoir, boucle d'entrée, planisseuse multi-rouleaux, boucle de sortie et rebobineuse."
-      data-specs-en="Strip width: up to 1,600 mm|Thickness: 0.3–4.0 mm|Speed: 60–120 m/min|Alloys: 1xxx, 3xxx, 5xxx|Applications: Cladding, facades, roofing|Supply: Full turnkey|Control: PLC automation"
-      data-specs-es="Ancho: hasta 1.600 mm|Espesor: 0,3–4,0 mm|Velocidad: 60–120 m/min|Aleaciones: 1xxx, 3xxx, 5xxx|Aplicaciones: Revestimiento, fachadas, cubiertas|Suministro: Llave en mano|Control: Automatización PLC"
-      data-specs-fr="Largeur : jusqu'à 1 600 mm|Épaisseur : 0,3–4,0 mm|Vitesse : 60–120 m/min|Alliages : 1xxx, 3xxx, 5xxx|Applications : Bardage, façades, toiture|Fourniture : Clé en main|Contrôle : Automatisation PLC"
-      data-vimeo="405766809" onclick="om(this)">
-      <img src="https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png?w=600&q=80&fit=crop" alt="Aluminium coil flat processing line">
-      <div class="po"><div class="ptag">Aluminium · Architecture</div><div class="ptit">Tension Levelling — Aluminium Architectural</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
+<section id="process" class="dark">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="eyebrow"><span class="n">03</span> How a line works</p><h2>Anatomy of a <em>coil coating</em> line.</h2></div>
+      <p class="lede">A continuous line takes a bare coil to a painted, cured and rewound coil in one pass. Select a station to see what it does.</p>
     </div>
-
-    <div class="pc on" data-cats="painting rolling"
-      data-img="https://cdn.shortpixel.ai/spai/q_lossy+w_2280+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg?w=900&q=85&fit=crop"
-      data-tag-en="Coil Coating · Architecture & Appliances" data-tag-es="Pintura Bobinas · Arquitectura y Electrodomésticos" data-tag-fr="Bobines Peintes · Architecture & Électroménager"
-      data-title-en="Paint Line — Architecture & Domestic Appliances"
-      data-title-es="Línea de Pintura — Arquitectura y Electrodomésticos"
-      data-title-fr="Ligne de Peinture — Architecture & Électroménager"
-      data-desc-en="High-speed coil paint line for galvanised steel and aluminium strip. Handles polyester, PVDF and plastisol paint systems with rapid colour-change capability and convection/IR oven sections. Strip width up to 2,400 mm at speeds up to 180 m/min. Full turnkey supply."
-      data-desc-es="Línea de pintura de bobinas de alta velocidad para fleje de acero galvanizado y aluminio. Maneja sistemas de pintura de poliéster, PVDF y plastisol con cambio rápido de color y secciones de horno de convección/IR. Ancho hasta 2.400 mm a velocidades hasta 180 m/min. Suministro llave en mano completo."
-      data-desc-fr="Ligne de peinture bobines haute vitesse pour feuillard acier galvanisé et aluminium. Gère les systèmes de peinture polyester, PVDF et plastisol avec changement rapide de couleur et fours convection/IR. Largeur jusqu'à 2 400 mm à des vitesses jusqu'à 180 m/min. Fourniture clé en main complète."
-      data-specs-en="Strip width: up to 2,400 mm|Speed: 20–180 m/min|Materials: Galvanised, Galvalume, Aluminium|Paints: Polyester, PVDF, PVDF2, Plastisol, Epoxy, SMP|Coater: Horizontal, Vertical, S-type, T-type|Ovens: Convection or IR"
-      data-specs-es="Ancho: hasta 2.400 mm|Velocidad: 20–180 m/min|Materiales: Galvanizado, Galvalume, Aluminio|Pinturas: Poliéster, PVDF, PVDF2, Plastisol, Epoxi, SMP|Pintadora: Horizontal, Vertical, tipo S, tipo T|Hornos: Convección o IR"
-      data-specs-fr="Largeur : jusqu'à 2 400 mm|Vitesse : 20–180 m/min|Matériaux : Galvanisé, Galvalume, Aluminium|Peintures : Polyester, PVDF, PVDF2, Plastisol, Époxy, SMP|Machine : Horizontale, Verticale, type S, type T|Fours : Convection ou IR"
-      data-vimeo="377505465" onclick="om(this)">
-      <img src="https://cdn.shortpixel.ai/spai/q_lossy+w_2280+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg?w=600&q=80&fit=crop" alt="Industrial coil painting line factory">
-      <div class="po"><div class="ptag">Coil Coating · Multi-sector</div><div class="ptit">Paint Line — Architecture &amp; Appliances</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
+    <div class="schema-wrap rv">
+      <div class="schema-scroll">
+<svg class="schema" viewBox="0 0 1200 340" role="group" aria-label="Anatomy of a coil coating line.">
+<line class="grid" x1="0" y1="20" x2="0" y2="250"/>
+<line class="grid" x1="40" y1="20" x2="40" y2="250"/>
+<line class="grid" x1="80" y1="20" x2="80" y2="250"/>
+<line class="grid" x1="120" y1="20" x2="120" y2="250"/>
+<line class="grid" x1="160" y1="20" x2="160" y2="250"/>
+<line class="grid" x1="200" y1="20" x2="200" y2="250"/>
+<line class="grid" x1="240" y1="20" x2="240" y2="250"/>
+<line class="grid" x1="280" y1="20" x2="280" y2="250"/>
+<line class="grid" x1="320" y1="20" x2="320" y2="250"/>
+<line class="grid" x1="360" y1="20" x2="360" y2="250"/>
+<line class="grid" x1="400" y1="20" x2="400" y2="250"/>
+<line class="grid" x1="440" y1="20" x2="440" y2="250"/>
+<line class="grid" x1="480" y1="20" x2="480" y2="250"/>
+<line class="grid" x1="520" y1="20" x2="520" y2="250"/>
+<line class="grid" x1="560" y1="20" x2="560" y2="250"/>
+<line class="grid" x1="600" y1="20" x2="600" y2="250"/>
+<line class="grid" x1="640" y1="20" x2="640" y2="250"/>
+<line class="grid" x1="680" y1="20" x2="680" y2="250"/>
+<line class="grid" x1="720" y1="20" x2="720" y2="250"/>
+<line class="grid" x1="760" y1="20" x2="760" y2="250"/>
+<line class="grid" x1="800" y1="20" x2="800" y2="250"/>
+<line class="grid" x1="840" y1="20" x2="840" y2="250"/>
+<line class="grid" x1="880" y1="20" x2="880" y2="250"/>
+<line class="grid" x1="920" y1="20" x2="920" y2="250"/>
+<line class="grid" x1="960" y1="20" x2="960" y2="250"/>
+<line class="grid" x1="1000" y1="20" x2="1000" y2="250"/>
+<line class="grid" x1="1040" y1="20" x2="1040" y2="250"/>
+<line class="grid" x1="1080" y1="20" x2="1080" y2="250"/>
+<line class="grid" x1="1120" y1="20" x2="1120" y2="250"/>
+<line class="grid" x1="1160" y1="20" x2="1160" y2="250"/>
+<line class="grid" x1="1200" y1="20" x2="1200" y2="250"/>
+<path class="strip" d="M88,120 L150,150 L222,150 L238.7,62 L252.0,222 L265.3,62 L278.7,222 L292.0,62 L305.3,222 L322,150 L1000,150 L1015.8,62 L1027.5,222 L1039.2,62 L1050.8,222 L1062.5,62 L1074.2,222 L1090,150 L1150,120"/>
+<path class="strip flow" d="M88,120 L150,150 L222,150 L238.7,62 L252.0,222 L265.3,62 L278.7,222 L292.0,62 L305.3,222 L322,150 L1000,150 L1015.8,62 L1027.5,222 L1039.2,62 L1050.8,222 L1062.5,62 L1074.2,222 L1090,150 L1150,120" stroke="#F3F1EC" stroke-opacity=".55" stroke-width="1.2"/>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Decoilers" data-desc="Two mandrels let the next coil be prepared while the current one runs, so coil changes never stop the line." aria-label="01. Decoilers">
+<rect class="hit" x="20" y="20" width="110" height="315"/>
+<circle class="mach fill" cx="70" cy="98" r="26"/><circle class="mach" cx="70" cy="98" r="6"/><circle class="mach" cx="70" cy="190" r="20" stroke-dasharray="3 3"/><circle class="mach" cx="70" cy="190" r="5"/><path class="mach" d="M50,235 h40 M70,124 v6"/>
+<line class="tick" x1="75.0" y1="256" x2="75.0" y2="280"/>
+<text class="lbl-n" x="75.0" y="292" text-anchor="middle">01</text>
+<text class="lbl" x="75.0" y="306" text-anchor="middle">Decoilers</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Shear &amp; stitcher" data-desc="The tail of one coil is trimmed and joined to the head of the next, creating an endless strip." aria-label="02. Shear &amp; stitcher">
+<rect class="hit" x="130" y="20" width="90" height="315"/>
+<rect class="mach fill" x="152" y="128" width="22" height="16"/><rect class="mach fill" x="152" y="156" width="22" height="16"/><path class="mach" d="M163,116 v12 M163,172 v12"/><rect class="mach" x="188" y="136" width="18" height="28"/><path class="mach" d="M192,150 h10"/>
+<line class="tick" x1="175.0" y1="256" x2="175.0" y2="298"/>
+<text class="lbl-n" x="175.0" y="310" text-anchor="middle">02</text>
+<text class="lbl" x="175.0" y="324" text-anchor="middle">Shear</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Entry accumulator" data-desc="A vertical strip store fills while the line runs and empties during coil changes, keeping process speed constant." aria-label="03. Entry accumulator">
+<rect class="hit" x="220" y="20" width="110" height="315"/>
+<rect class="mach" x="230" y="40" width="94" height="200" stroke-dasharray="2 4"/><circle class="mach fill" cx="245" cy="62" r="7"/><circle class="mach fill" cx="272" cy="62" r="7"/><circle class="mach fill" cx="299" cy="62" r="7"/><circle class="mach fill" cx="258" cy="222" r="7"/><circle class="mach fill" cx="285" cy="222" r="7"/><circle class="mach fill" cx="312" cy="222" r="7"/>
+<line class="tick" x1="275.0" y1="256" x2="275.0" y2="280"/>
+<text class="lbl-n" x="275.0" y="292" text-anchor="middle">03</text>
+<text class="lbl" x="275.0" y="306" text-anchor="middle">Entry accum.</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Cleaning &amp; pre-treatment" data-desc="Alkaline degreasing, rinsing and a chemical conversion coat prepare the surface for paint adhesion and corrosion resistance." aria-label="04. Cleaning &amp; pre-treatment">
+<rect class="hit" x="330" y="20" width="150" height="315"/>
+<rect class="mach" x="336" y="120" width="138" height="88" stroke-dasharray="2 4"/><rect class="mach fill" x="344" y="160" width="27" height="40"/><path class="mach" d="M349,136 l4,8 M357,134 v10 M365,136 l-4,8"/><rect class="mach fill" x="377" y="160" width="27" height="40"/><path class="mach" d="M382,136 l4,8 M390,134 v10 M398,136 l-4,8"/><rect class="mach fill" x="410" y="160" width="27" height="40"/><path class="mach" d="M415,136 l4,8 M423,134 v10 M431,136 l-4,8"/><rect class="mach fill" x="443" y="160" width="27" height="40"/><path class="mach" d="M448,136 l4,8 M456,134 v10 M464,136 l-4,8"/>
+<line class="tick" x1="405.0" y1="256" x2="405.0" y2="298"/>
+<text class="lbl-n" x="405.0" y="310" text-anchor="middle">04</text>
+<text class="lbl" x="405.0" y="324" text-anchor="middle">Pre-treatment</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Primer coater" data-desc="Roll coaters apply primer to the top face and backer to the reverse in a controlled film thickness." aria-label="05. Primer coater">
+<rect class="hit" x="480" y="20" width="68" height="315"/>
+<circle class="mach fill" cx="506" cy="138" r="11"/><circle class="mach" cx="522" cy="116" r="9"/><circle class="mach fill" cx="506" cy="162" r="11"/><circle class="mach" cx="522" cy="184" r="9"/><path class="mach" d="M488,210 h44"/>
+<line class="tick" x1="514.0" y1="256" x2="514.0" y2="280"/>
+<text class="lbl-n" x="514.0" y="292" text-anchor="middle">05</text>
+<text class="lbl" x="514.0" y="306" text-anchor="middle">Primer coat</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Primer oven &amp; quench" data-desc="Convection zones cure the primer to a precise peak metal temperature; a water quench then cools the strip." aria-label="06. Primer oven &amp; quench">
+<rect class="hit" x="548" y="20" width="172" height="315"/>
+<rect class="heat" x="556" y="120" width="128" height="60"/><path class="mach" d="M588,120 v60" stroke-dasharray="2 3"/><path class="mach" d="M620,120 v60" stroke-dasharray="2 3"/><path class="mach" d="M652,120 v60" stroke-dasharray="2 3"/><rect class="mach fill" x="692" y="128" width="20" height="44"/><path class="mach" d="M697,118 l3,6 M707,118 l-3,6"/><path class="mach" d="M600,120 v-28 h12 v28" />
+<line class="tick" x1="634.0" y1="256" x2="634.0" y2="298"/>
+<text class="lbl-n" x="634.0" y="310" text-anchor="middle">06</text>
+<text class="lbl" x="634.0" y="324" text-anchor="middle">Primer oven</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Finish coater" data-desc="The top coat is applied, with fast colour-change capability to minimise downtime between orders." aria-label="07. Finish coater">
+<rect class="hit" x="720" y="20" width="68" height="315"/>
+<circle class="mach fill" cx="746" cy="138" r="11"/><circle class="mach" cx="762" cy="116" r="9"/><circle class="mach fill" cx="746" cy="162" r="11"/><circle class="mach" cx="762" cy="184" r="9"/><path class="mach" d="M728,210 h44"/>
+<line class="tick" x1="754.0" y1="256" x2="754.0" y2="280"/>
+<text class="lbl-n" x="754.0" y="292" text-anchor="middle">07</text>
+<text class="lbl" x="754.0" y="306" text-anchor="middle">Finish coat</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Finish oven &amp; quench" data-desc="Final cure, quench and drying. Fume incineration recovers energy back into the ovens." aria-label="08. Finish oven &amp; quench">
+<rect class="hit" x="788" y="20" width="212" height="315"/>
+<rect class="heat" x="796" y="120" width="150" height="60"/><path class="mach" d="M834,120 v60" stroke-dasharray="2 3"/><path class="mach" d="M872,120 v60" stroke-dasharray="2 3"/><path class="mach" d="M910,120 v60" stroke-dasharray="2 3"/><rect class="mach fill" x="956" y="128" width="20" height="44"/><path class="mach" d="M961,118 l3,6 M971,118 l-3,6"/><path class="mach" d="M846,120 v-28 h12 v28" /><path class="mach" d="M852,92 v-14" stroke-dasharray="2 2"/>
+<line class="tick" x1="894.0" y1="256" x2="894.0" y2="298"/>
+<text class="lbl-n" x="894.0" y="310" text-anchor="middle">08</text>
+<text class="lbl" x="894.0" y="324" text-anchor="middle">Finish oven</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Exit accumulator &amp; inspection" data-desc="Buffers the strip during coil cut-off, with surface inspection and optional protective-film lamination." aria-label="09. Exit accumulator &amp; inspection">
+<rect class="hit" x="1000" y="20" width="98" height="315"/>
+<rect class="mach" x="1006" y="40" width="86" height="200" stroke-dasharray="2 4"/><circle class="mach fill" cx="1022" cy="62" r="7"/><circle class="mach fill" cx="1045" cy="62" r="7"/><circle class="mach fill" cx="1068" cy="62" r="7"/><circle class="mach fill" cx="1034" cy="222" r="7"/><circle class="mach fill" cx="1057" cy="222" r="7"/><circle class="mach fill" cx="1080" cy="222" r="7"/>
+<line class="tick" x1="1049.0" y1="256" x2="1049.0" y2="280"/>
+<text class="lbl-n" x="1049.0" y="292" text-anchor="middle">09</text>
+<text class="lbl" x="1049.0" y="306" text-anchor="middle">Exit accum.</text>
+</g>
+<g class="st" tabindex="0" role="button" aria-pressed="false" data-name="Recoiler" data-desc="The strip is cut to the ordered coil weight and rewound, ready for packing and dispatch." aria-label="10. Recoiler">
+<rect class="hit" x="1098" y="20" width="92" height="315"/>
+<path class="mach" d="M1104,140 l8,10 l-8,10"/><circle class="mach fill" cx="1150" cy="98" r="24"/><circle class="mach" cx="1150" cy="98" r="6"/><path class="mach" d="M1128,156 h44 M1150,122 v34"/>
+<line class="tick" x1="1144.0" y1="256" x2="1144.0" y2="298"/>
+<text class="lbl-n" x="1144.0" y="310" text-anchor="middle">10</text>
+<text class="lbl" x="1144.0" y="324" text-anchor="middle">Recoiler</text>
+</g>
+</svg>
+      </div>
+      <div class="schema-panel" aria-live="polite">
+        <div class="pn">01</div>
+        <div><h3>Decoilers</h3><p>Two mandrels let the next coil be prepared while the current one runs, so coil changes never stop the line.</p></div>
+        <div class="schema-nav">
+          <button type="button" data-schema="prev" aria-label="Previous station"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+          <button type="button" data-schema="next" aria-label="Next station"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+        </div>
+      </div>
     </div>
-
-    <div class="pc on" data-cats="levelling"
-      data-img="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&fit=crop"
-      data-tag-en="Copper · Electronics" data-tag-es="Cobre · Electrónica" data-tag-fr="Cuivre · Électronique"
-      data-title-en="Tension Levelling — Copper for Electronic Components"
-      data-title-es="Aplanado Bajo Tensión — Cobre para Componentes Electrónicos"
-      data-title-fr="Planage sous Tension — Cuivre pour Composants Électroniques"
-      data-desc-en="Precision tension levelling line for copper and copper-alloy strip, engineered for the demanding flatness and surface quality requirements of the electronics industry. Processes thin gauges down to 0.1 mm with extremely tight thickness tolerances. Integrated surface inspection system monitors each pass."
-      data-desc-es="Línea de aplanado bajo tensión de precisión para fleje de cobre y aleaciones de cobre. Procesa espesores delgados hasta 0,1 mm con tolerancias muy estrictas. Sistema integrado de inspección de superficie monitoriza cada pasada."
-      data-desc-fr="Ligne de planage sous tension de précision pour feuillard cuivre et alliages. Traite des épaisseurs jusqu'à 0,1 mm avec des tolérances très serrées. Système de contrôle de surface intégré monitorisant chaque passe."
-      data-specs-en="Strip width: 100–650 mm|Thickness: 0.10–2.0 mm|Speed: 30–100 m/min|Materials: Copper, brass, bronze alloys|Applications: PCB, connectors, lead frames|Integrated surface inspection"
-      data-specs-es="Ancho: 100–650 mm|Espesor: 0,10–2,0 mm|Velocidad: 30–100 m/min|Materiales: Cobre, latón, aleaciones de bronce|Aplicaciones: PCB, conectores, lead frames|Inspección de superficie integrada"
-      data-specs-fr="Largeur : 100–650 mm|Épaisseur : 0,10–2,0 mm|Vitesse : 30–100 m/min|Matériaux : Cuivre, laiton, alliages de bronze|Applications : PCB, connecteurs, lead frames|Contrôle de surface intégré"
-      data-vimeo="378247250" onclick="om(this)">
-      <img src="https://almetals.com/getfile/d6492474-c916-4ee2-87ee-db33a0c7d203/Copper.aspx?w=600&q=80&fit=crop" alt="Precision copper strip processing machinery">
-      <div class="po"><div class="ptag">Copper · Electronics</div><div class="ptit">Tension Levelling — Copper for Electronics</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="painting aluminium"
-      data-img="https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG?w=900&q=85&fit=crop"
-      data-tag-en="Aluminium · Coil Coating" data-tag-es="Aluminio · Pintura Bobinas" data-tag-fr="Aluminium · Peinture Bobines"
-      data-title-en="Paint Line for Aluminium Coils"
-      data-title-es="Línea de Pintura para Bobinas de Aluminio"
-      data-title-fr="Ligne de Peinture pour Bobines d'Aluminium"
-      data-desc-en="Continuous paint line for aluminium coils for construction and packaging markets. Applies primer and finish in a single continuous pass, with drying ovens calibrated for optimal adhesion on pre-treated aluminium. Available in 1C1B or 2C2B configurations with quick colour-change system."
-      data-desc-es="Línea de pintura continua para bobinas de aluminio para los mercados de construcción y envase. Aplica imprimación y acabado en un solo paso continuo con hornos calibrados para adherencia óptima sobre superficies pretratadas. Disponible en configuraciones 1C1H o 2C2H."
-      data-desc-fr="Ligne de peinture continue pour bobines d'aluminium pour les marchés de la construction et de l'emballage. Applique primaire et finition en un seul passage continu avec des fours sécheurs calibrés pour une adhérence optimale sur surfaces prétraitées."
-      data-specs-en="Strip width: up to 1,650 mm|Speed: 40–120 m/min|Paints: Polyester, PVDF, Acrylic|Configurations: 1C1B or 2C2B|Pre-treatment: included|Quick colour-change system"
-      data-specs-es="Ancho: hasta 1.650 mm|Velocidad: 40–120 m/min|Pinturas: Poliéster, PVDF, Acrílico|Configuraciones: 1C1H o 2C2H|Pretratamiento: incluido|Sistema de cambio rápido de color"
-      data-specs-fr="Largeur : jusqu'à 1 650 mm|Vitesse : 40–120 m/min|Peintures : Polyester, PVDF, Acrylique|Configurations : 1C1F ou 2C2F|Prétraitement : inclus|Système de changement rapide de couleur"
-      data-vimeo="79761902" onclick="om(this)">
-      <img src="https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG?w=600&q=80&fit=crop" alt="Large flat aluminium coils industrial">
-      <div class="po"><div class="ptag">Aluminium · Coil Coating</div><div class="ptit">Paint Line for Aluminium Coils</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="pickling rolling"
-      data-img="https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg?w=900&q=85&fit=crop"
-      data-tag-en="Carbon Steel · Pickling" data-tag-es="Acero al Carbono · Decapado" data-tag-fr="Acier Carbone · Décapage"
-      data-title-en="Pickling Line — Narrow Carbon Steel Coils"
-      data-title-es="Línea de Decapado — Bobinas de Acero al Carbono Estrechas"
-      data-title-fr="Ligne de Décapage — Bobines Étroites Acier Carbone"
-      data-desc-en="Compact HCl pickling line for narrow carbon steel strip, designed as part of an integrated cold-rolling complex. Includes pickling tanks, rinsing section, drying and passivation. Delivers clean, oxide-free strip at high throughput. Integrated fume extraction and acid regeneration comply with all environmental regulations."
-      data-desc-es="Línea de decapado HCl compacta para fleje de acero al carbono estrecho. Incluye cubas de decapado, sección de enjuague, secado y pasivación. Entrega fleje limpio y libre de óxidos con alta productividad. Extracción de humos y regeneración de ácido integradas cumplen todas las normativas."
-      data-desc-fr="Ligne de décapage HCl compacte pour feuillard étroit en acier carbone. Comprend cuves de décapage, section de rinçage, séchage et passivation. Fournit un feuillard propre et sans oxyde à haute cadence. Extraction des fumées et régénération d'acide conformes aux réglementations."
-      data-specs-en="Strip width: 100–700 mm|Entry thickness: 1.5–6 mm|Exit thickness: 1.0–4 mm|Acid: HCl|Speed: 30–120 m/min|Acid regeneration: included"
-      data-specs-es="Ancho: 100–700 mm|Espesor de entrada: 1,5–6 mm|Espesor de salida: 1,0–4 mm|Ácido: HCl|Velocidad: 30–120 m/min|Regeneración de ácido: incluida"
-      data-specs-fr="Largeur : 100–700 mm|Épaisseur d'entrée : 1,5–6 mm|Épaisseur de sortie : 1,0–4 mm|Acide : HCl|Vitesse : 30–120 m/min|Régénération d'acide : incluse"
-      data-vimeo="79763333" onclick="om(this)">
-      <img src="https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg?w=600&q=80&fit=crop" alt="Steel coil pickling line machinery">
-      <div class="po"><div class="ptag">Carbon Steel · Pickling</div><div class="ptit">Pickling Line — Narrow Carbon Steel Coils</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="rolling"
-      data-img="https://www.sst.net/wp-content/uploads/2016/02/quenching-1024x782.jpg?w=900&q=85&fit=crop&crop=entropy"
-      data-tag-en="Steel · Annealing" data-tag-es="Acero · Recocido" data-tag-fr="Acier · Recuit"
-      data-title-en="Annealing Section — Carbon Steel Rolling Plant"
-      data-title-es="Sección de Recocido — Planta de Laminación de Acero al Carbono"
-      data-title-fr="Section de Recuit — Usine de Laminage Acier Carbone"
-      data-desc-en="Bell annealing section integrated within a cold-rolling complex for carbon steel strip. Controlled-atmosphere (HNX) bell furnaces achieve full recrystallisation for CQ, DQ, DDQ and EDDQ grades. Programmable heating and cooling cycles allow flexible multi-grade production in a single facility."
-      data-desc-es="Sección de recocido en campana integrada en un complejo de laminación en frío para fleje de acero al carbono. Hornos de campana con atmósfera controlada (HNX) para recristalización completa en calidades CQ, DQ, DDQ y EDDQ. Ciclos de calentamiento y enfriamiento programables para producción multi-calidad."
-      data-desc-fr="Section de recuit en cloche intégrée dans un complexe de laminage à froid. Fours-cloche à atmosphère contrôlée (HNX) pour recristallisation complète des nuances CQ, DQ, DDQ et EDDQ. Cycles de chauffage et refroidissement programmables pour production multi-nuances."
-      data-specs-en="Furnace type: Bell annealing (HNX)|Coil weight: up to 32 Ton|Grades: CQ, DQ, DDQ, EDDQ|Cooling: controlled forced convection|Integration: inline with rolling mill possible"
-      data-specs-es="Tipo de horno: Recocido en campana (HNX)|Peso de bobina: hasta 32 Ton|Calidades: CQ, DQ, DDQ, EDDQ|Enfriamiento: convección forzada controlada|Integración: posible en línea con laminador"
-      data-specs-fr="Type de four : Recuit en cloche (HNX)|Poids de bobine : jusqu'à 32 T|Nuances : CQ, DQ, DDQ, EDDQ|Refroidissement : convection forcée contrôlée|Intégration : possible en ligne avec le laminoir"
-      data-vimeo="79761901" onclick="om(this)">
-      <img src="https://www.sst.net/wp-content/uploads/2016/02/quenching-1024x782.jpg?w=600&q=80&fit=crop&crop=entropy" alt="Industrial annealing furnace rolling plant">
-      <div class="po"><div class="ptag">Steel · Annealing</div><div class="ptit">Annealing Section — Carbon Steel Plant</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="painting rolling aluminium"
-      data-img="https://www.sa-inco.com/en_US/media/5207094a352b16a28ff50ad4ef6e7498.cms_1_1024_1_1024__/melting-and-continuous-casting-section-in-an-aluminium-slug-plant.jpg?w=900&q=85&fit=crop&crop=entropy"
-      data-tag-en="Multi-material · Coil Coating" data-tag-es="Multimaterial · Pintura Bobinas" data-tag-fr="Multimatériaux · Peinture Bobines"
-      data-title-en="Paint Line — Galvanised, Aluzinc & Aluminium"
-      data-title-es="Línea de Pintura — Acero Galvanizado, Aluzinc y Aluminio"
-      data-title-fr="Ligne de Peinture — Galvanisé, Aluzinc & Aluminium"
-      data-desc-en="Versatile multi-material paint line processing galvanised steel, Aluzinc (Galvalume) and aluminium coils in a single continuous line. Horizontal coater with full pre-treatment (chemical cleaning + chromating/passivation), two-coat two-bake application and integrated wastewater treatment."
-      data-desc-es="Línea de pintura multimaterial que procesa bobinas de acero galvanizado, Aluzinc y aluminio en una única línea continua. Pintadora horizontal con pretratamiento completo (limpieza química + cromatado/pasivación), dos capas/dos hornos y tratamiento de aguas integrado."
-      data-desc-fr="Ligne de peinture multimatériaux traitant bobines d'acier galvanisé, Aluzinc et aluminium dans une seule ligne continue. Configuration horizontale avec prétraitement complet, 2 couches/2 fours et station de traitement des eaux intégrée."
-      data-specs-en="Materials: Galvanised, Galvalume, Aluminium|Width: up to 1,800 mm|Speed: 30–120 m/min|Coater: horizontal 2-roll|Paints: Polyester, SMP, PVDF, Plastisol|Wastewater treatment: included"
-      data-specs-es="Materiales: Galvanizado, Galvalume, Aluminio|Ancho: hasta 1.800 mm|Velocidad: 30–120 m/min|Pintadora: horizontal 2 rodillos|Pinturas: Poliéster, SMP, PVDF, Plastisol|Tratamiento de aguas: incluido"
-      data-specs-fr="Matériaux : Galvanisé, Galvalume, Aluminium|Largeur : jusqu'à 1 800 mm|Vitesse : 30–120 m/min|Machine : horizontale 2 rouleaux|Peintures : Polyester, SMP, PVDF, Plastisol|Traitement des eaux : inclus"
-      data-vimeo="79761903" onclick="om(this)">
-      <img src="https://www.sa-inco.com/en_US/media/5207094a352b16a28ff50ad4ef6e7498.cms_1_1024_1_1024__/melting-and-continuous-casting-section-in-an-aluminium-slug-plant.jpg?w=600&q=80&fit=crop&crop=entropy" alt="Multi-material coil paint line">
-      <div class="po"><div class="ptag">Multi-material · Coil Coating</div><div class="ptit">Paint Line — Galvanised, Aluzinc &amp; Aluminium</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="casting aluminium"
-      data-img="https://www.adtechamm.com/wp-content/uploads/2018/08/Aluminum-Billet-Mold-Technology.jpg?w=900&q=85&fit=crop&crop=entropy"
-      data-tag-en="Aluminium · Billet Casting" data-tag-es="Aluminio · Colada Continua" data-tag-fr="Aluminium · Coulée Continue"
-      data-title-en="Melting & Continuous Casting — Aluminium Billet Plant"
-      data-title-es="Fusión y Colada Continua — Planta de Pastillas de Aluminio"
-      data-title-fr="Fusion et Coulée Continue — Usine de Billettes d'Aluminium"
-      data-desc-en="Complete melting and continuous casting section for an aluminium billet manufacturing plant. Includes shaft furnaces for primary and secondary aluminium, rotary degassing, ceramic foam filtration, electromagnetic stirring and a multi-strand continuous casting machine with automatic cut-to-length. Full PLC automation with recipe management."
-      data-desc-es="Sección completa de fusión y colada continua para una planta de fabricación de pastillas de aluminio. Incluye hornos de cuba para aluminio primario y secundario, desgasificación rotativa, filtración de espuma cerámica, agitación electromagnética y colada continua multi-hilo con corte automático. Automatización PLC completa."
-      data-desc-fr="Section complète de fusion et coulée continue pour une usine de fabrication de billettes d'aluminium. Comprend fours à cuve, dégazage rotatif, filtration par mousse céramique, brassage électromagnétique et coulée continue multi-fils avec coupe automatique. Automatisation PLC complète."
-      data-specs-en="Capacity: up to 30 Ton/h|Alloys: 1xxx, 3xxx, 5xxx, 6xxx, 8xxx|Billet diameter: 75–400 mm|Degassing: rotary|Filtration: ceramic foam|Electromagnetic stirring: included"
-      data-specs-es="Capacidad: hasta 30 T/h|Aleaciones: 1xxx, 3xxx, 5xxx, 6xxx, 8xxx|Diámetro: 75–400 mm|Desgasificación: rotativa|Filtración: espuma cerámica|Agitación electromagnética: incluida"
-      data-specs-fr="Capacité : jusqu'à 30 T/h|Alliages : 1xxx, 3xxx, 5xxx, 6xxx, 8xxx|Diamètre : 75–400 mm|Dégazage : rotatif|Filtration : mousse céramique|Brassage électromagnétique : inclus"
-      data-vimeo="79763332" onclick="om(this)">
-      <img src="https://www.adtechamm.com/wp-content/uploads/2018/08/Aluminum-Billet-Mold-Technology.jpg?w=600&q=80&fit=crop&crop=entropy" alt="Aluminium continuous casting billet plant">
-      <div class="po"><div class="ptag">Aluminium · Billet Casting</div><div class="ptit">Melting &amp; Continuous Casting — Aluminium Billets</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="casting rolling"
-      data-img="https://www.sa-inco.com/en_US/media/d4909864907e931ad518ddde9a8fedc2.cms_1_1024_1_1024__/continuous-casting-with-hot-rolling-and-3-stands-cold-rolling-tandem-line-for-no.jpg?w=900&q=85&fit=crop&crop=entropy"
-      data-tag-en="Non-Ferrous · Integrated Plant" data-tag-es="No Férreo · Planta Integrada" data-tag-fr="Non Ferreux · Usine Intégrée"
-      data-title-en="Continuous Casting + Hot Rolling — 3-Stand Tandem"
-      data-title-es="Colada Continua + Laminador en Caliente — Tándem 3 Stands"
-      data-title-fr="Coulée Continue + Laminoir à Chaud — Tandem 3 Cages"
-      data-desc-en="Fully integrated continuous casting and hot rolling complex for non-ferrous metals. Combines a twin-roll or belt caster with an inline 3-stand hot tandem mill, producing coils or cut-to-length sheets in a single energy-efficient production flow. Suitable for aluminium and copper alloys."
-      data-desc-es="Complejo integrado de colada continua y laminación en caliente para metales no ferrosos. Combina una colada de doble rodillo o correa con un tren tándem caliente en línea de 3 stands. Adecuado para aleaciones de aluminio y cobre."
-      data-desc-fr="Complexe intégré de coulée continue et laminage à chaud pour métaux non ferreux. Combine machine de coulée à deux rouleaux ou à courroie avec train tandem à chaud de 3 cages. Adapté aux alliages d'aluminium et de cuivre."
-      data-specs-en="Casting speed: up to 8 m/min|Hot mill: 3-stand tandem, 4-high|Entry gauge: 8–25 mm|Exit gauge: 2–8 mm|Width: up to 1,400 mm|Coil weight: up to 15 Ton"
-      data-specs-es="Velocidad de colada: hasta 8 m/min|Laminador: tándem 3 stands cuarto|Espesor de entrada: 8–25 mm|Espesor de salida: 2–8 mm|Ancho: hasta 1.400 mm|Peso de bobina: hasta 15 T"
-      data-specs-fr="Vitesse de coulée : jusqu'à 8 m/min|Laminoir : tandem 3 cages, quarto|Épaisseur d'entrée : 8–25 mm|Épaisseur de sortie : 2–8 mm|Largeur : jusqu'à 1 400 mm|Poids de bobine : jusqu'à 15 T"
-      data-vimeo="79761904" onclick="om(this)">
-      <img src="https://www.sa-inco.com/en_US/media/d4909864907e931ad518ddde9a8fedc2.cms_1_1024_1_1024__/continuous-casting-with-hot-rolling-and-3-stands-cold-rolling-tandem-line-for-no.jpg?w=600&q=80&fit=crop&crop=entropy" alt="Continuous casting hot rolling mill tandem">
-      <div class="po"><div class="ptag">Non-Ferrous · Integrated Plant</div><div class="ptit">Continuous Casting + 3-Stand Hot Rolling Tandem</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="aluminium service"
-      data-img="https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg?w=900&q=85&fit=crop&crop=entropy"
-      data-tag-en="Aluminium · Discs" data-tag-es="Aluminio · Discos" data-tag-fr="Aluminium · Disques"
-      data-title-en="Aluminium Disc Blanking Line"
-      data-title-es="Línea de Discos de Aluminio"
-      data-title-fr="Ligne de Découpe de Disques d'Aluminium"
-      data-desc-en="High-output aluminium disc blanking line producing circular blanks for cookware, automotive and packaging industries. Achieves tight dimensional tolerances and optimal surface quality with integrated deburring, electrostatic oiling and surface inspection. Automatic stacking and packing complete the line."
-      data-desc-es="Línea de troquelado de discos de aluminio de alta producción para las industrias de utensilios de cocina, automoción y envase. Consigue tolerancias dimensionales estrictas y calidad superficial óptima con desbarbado integrado, engrasado electrostático e inspección de superficie."
-      data-desc-fr="Ligne de découpe de disques aluminium haute cadence pour les industries de la batterie de cuisine, de l'automobile et de l'emballage. Tolérances dimensionnelles strictes et qualité de surface optimale avec ébavurage intégré, huilage électrostatique et contrôle de surface."
-      data-specs-en="Disc diameter: 80–600 mm|Alloys: 1xxx, 3xxx, 5xxx|Thickness: 0.4–4.0 mm|Output: up to 200 discs/min|Lubrication: electrostatic oiling"
-      data-specs-es="Diámetro: 80–600 mm|Aleaciones: 1xxx, 3xxx, 5xxx|Espesor: 0,4–4,0 mm|Producción: hasta 200 discos/min|Lubricación: engrasado electrostático"
-      data-specs-fr="Diamètre : 80–600 mm|Alliages : 1xxx, 3xxx, 5xxx|Épaisseur : 0,4–4,0 mm|Cadence : jusqu'à 200 disques/min|Lubrification : huilage électrostatique"
-      data-vimeo="" onclick="om(this)">
-      <img src="https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg?w=600&q=80&fit=crop&crop=entropy" alt="Aluminium disc blanking machine industrial">
-      <div class="po"><div class="ptag">Aluminium · Discs</div><div class="ptit">Aluminium Disc Blanking Line</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="aluminium service"
-      data-img="https://5.imimg.com/data5/SELLER/Default/2024/5/419965512/OK/CX/VV/1108668/aluminum-recycling-plant-1000x1000.jpg?w=900&q=85&fit=crop"
-      data-tag-en="Aluminium · Recycling" data-tag-es="Aluminio · Reciclaje" data-tag-fr="Aluminium · Recyclage"
-      data-title-en="Aluminium Recycling Plant"
-      data-title-es="Planta de Reciclaje de Aluminio"
-      data-title-fr="Usine de Recyclage d'Aluminium"
-      data-desc-en="Complete aluminium scrap recycling plant including shredding, classification, pre-heating, melting in rotary and reverberatory furnaces, degassing, alloying and continuous casting. Maximises metal recovery and minimises energy consumption and emissions through integrated afterburner and bag filter systems."
-      data-desc-es="Planta completa de reciclaje de chatarra de aluminio que incluye trituración, clasificación, precalentamiento, fusión en hornos rotativos y de reverbero, desgasificación, aleación y colada continua. Maximiza la recuperación de metal y minimiza consumo de energía y emisiones."
-      data-desc-fr="Usine complète de recyclage de déchets d'aluminium comprenant broyage, classification, préchauffage, fusion en fours rotatifs et à réverbère, dégazage, alliage et coulée continue. Maximise la récupération du métal et minimise les émissions."
-      data-specs-en="Capacity: up to 20 Ton/h|Input: mixed scrap, UBC, process scrap|Furnaces: rotary drum + reverberatory|Dross treatment: included|Emission control: afterburner + bag filter"
-      data-specs-es="Capacidad: hasta 20 T/h|Entrada: chatarra mixta, UBC, chatarra de proceso|Hornos: rotativo + reverbero|Tratamiento de escorias: incluido|Control de emisiones: postcombustión + filtro de mangas"
-      data-specs-fr="Capacité : jusqu'à 20 T/h|Entrée : ferraille mixte, UBC, chutes|Fours : rotatif + à réverbère|Traitement des scories : inclus|Contrôle des émissions : postcombustion + filtre à manches"
-      data-vimeo="" onclick="om(this)">
-      <img src="https://5.imimg.com/data5/SELLER/Default/2024/5/419965512/OK/CX/VV/1108668/aluminum-recycling-plant-1000x1000.jpg?w=600&q=80&fit=crop" alt="Aluminium flat coils recycling plant output">
-      <div class="po"><div class="ptag">Aluminium · Recycling</div><div class="ptit">Aluminium Recycling Plant</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
-    <div class="pc on" data-cats="service rolling"
-      data-img="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=85&fit=crop"
-      data-tag-en="Service Centre · Multi-material" data-tag-es="Centro de Servicio · Multimaterial" data-tag-fr="Centre de Service · Multimatériaux"
-      data-title-en="Service Centre Lines — Steel & Aluminium"
-      data-title-es="Líneas para Centros de Servicio — Acero y Aluminio"
-      data-title-fr="Lignes pour Centres de Service — Acier & Aluminium"
-      data-desc-en="Complete service centre equipment including slitting lines, cut-to-length lines, cross-cut shears and recoiling equipment for steel and aluminium distributors. Designed for maximum versatility, quick changeover and reliable performance in high-volume distribution environments."
-      data-desc-es="Equipamiento completo para centros de servicio incluyendo líneas de corte longitudinal, líneas de corte transversal, cizallas y equipos de rebobinado para distribuidores de acero y aluminio."
-      data-desc-fr="Équipement complet pour centres de service comprenant lignes de refendage, lignes de coupe à longueur, cisailles et équipements de rebobinage pour les distributeurs d'acier et d'aluminium."
-      data-specs-en="Slitting: up to 1,800 mm wide, 0.3–8 mm thick|Cut-to-length tolerance: ±0.5 mm|Speeds: up to 200 m/min|Materials: mild steel, AHSS, aluminium, stainless|Coil weight: up to 35 Ton"
-      data-specs-es="Corte longitudinal: hasta 1.800 mm, 0,3–8 mm|Tolerancia corte a medida: ±0,5 mm|Velocidades: hasta 200 m/min|Materiales: acero suave, AHSS, aluminio, inoxidable|Peso de bobina: hasta 35 T"
-      data-specs-fr="Refendage : jusqu'à 1 800 mm, 0,3–8 mm|Tolérance coupe à longueur : ±0,5 mm|Vitesses : jusqu'à 200 m/min|Matériaux : acier doux, AHSS, aluminium, inox|Poids de bobine : jusqu'à 35 T"
-      data-vimeo="" onclick="om(this)">
-      <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80&fit=crop" alt="Industrial service centre slitting line">
-      <div class="po"><div class="ptag">Service Centre · Multi-material</div><div class="ptit">Service Centre Lines — Steel &amp; Aluminium</div><span class="pmore"><span data-lang="en" class="active">Details</span><span data-lang="es">Detalles</span><span data-lang="fr">Détails</span></span></div>
-    </div>
-
+    <div class="schema-note"><span>Schematic · 2-coat, 2-bake (2C2B) configuration · not to scale</span>
+      <span class="legend"><span><i></i>Strip path</span><span><i class="h"></i>Heated section</span></span></div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="alt">
-  <div class="stag"><span data-lang="en" class="active">Get in Touch</span><span data-lang="es">Contáctenos</span><span data-lang="fr">Contactez-Nous</span></div>
-  <h2 class="stitle"><span data-lang="en" class="active">Technical &amp; Commercial Enquiries</span><span data-lang="es">Solicitudes Técnicas y Comerciales</span><span data-lang="fr">Demandes Techniques et Commerciales</span></h2>
-  <p class="ssub"><span data-lang="en" class="active">Tell us about your process requirements and our engineers will respond with an initial technical assessment.</span><span data-lang="es">Cuéntenos sus requisitos de proceso y nuestros ingenieros responderán con una evaluación técnica inicial.</span><span data-lang="fr">Décrivez vos exigences et nos ingénieurs vous fourniront une évaluation technique préliminaire.</span></p>
-  <div class="cong">
-    <div>
-      <div class="cit">
-        <div class="cion"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.77 1h3a2 2 0 012 1.72c.13 1 .36 1.99.72 2.93a2 2 0 01-.45 2.11L6.91 8.91a16 16 0 006.18 6.18l1.15-1.15a2 2 0 012.11-.45c.94.36 1.93.59 2.93.72A2 2 0 0122 16.92z"/></svg></div>
-        <div><div class="clbl"><span data-lang="en" class="active">Phone</span><span data-lang="es">Teléfono</span><span data-lang="fr">Téléphone</span></div><a href="tel:+34932387960" class="cval">+34 932 387 960</a></div>
-      </div>
-      <div class="cit">
-        <div class="cion"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div><div class="clbl">Email</div><a href="mailto:inco@saincome.es" class="cval">inco@saincome.es</a></div>
-      </div>
-      <div class="offs">
-        <div class="ofc"><div class="ofcity">Barcelona</div><div class="ofdet"><span data-lang="en" class="active">Tuset 20-24, Barcelona, Spain — Main Office</span><span data-lang="es">España — Oficina Principal</span><span data-lang="fr">Espagne — Bureau Principal</span></div></div>
-        <div class="ofc"><div class="ofcity">Geneva</div><div class="ofdet"><span data-lang="en" class="active">26 Boulevard des Philosophes, Geneva Switzerland — European Office</span><span data-lang="es">Suiza — Oficina Europea</span><span data-lang="fr">Suisse — Bureau Européen</span></div></div>
-      </div>
+<section id="service">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="eyebrow"><span class="n">04</span> Service</p><h2>From first study to <em>full production</em>.</h2></div>
+      <p class="lede">One team, accountable from the initial assessment to the line running at nominal speed.</p>
     </div>
-    <div>
-      <div class="frow">
-        <div class="fg"><label class="fl"><span data-lang="en" class="active">First Name</span><span data-lang="es">Nombre</span><span data-lang="fr">Prénom</span></label><input type="text" class="fi"></div>
-        <div class="fg"><label class="fl"><span data-lang="en" class="active">Last Name</span><span data-lang="es">Apellido</span><span data-lang="fr">Nom</span></label><input type="text" class="fi"></div>
-      </div>
-      <div class="fg"><label class="fl"><span data-lang="en" class="active">Company</span><span data-lang="es">Empresa</span><span data-lang="fr">Société</span></label><input type="text" class="fi"></div>
-      <div class="fg"><label class="fl">Email</label><input type="email" class="fi"></div>
-      <div class="fg"><label class="fl"><span data-lang="en" class="active">Process / Application</span><span data-lang="es">Proceso / Aplicación</span><span data-lang="fr">Procédé / Application</span></label>
-        <select class="fsl"><option></option><option>Rolling Mill / Laminador</option><option>Coil Paint Line / Línea de Pintura</option><option>Pickling / Decapado</option><option>Annealing / Recocido</option><option>Tension Levelling / Aplanado</option><option>Continuous Casting / Colada Continua</option><option>Aluminium Recycling / Reciclaje Aluminio</option><option>Service Centre / Centro de Servicio</option><option>Other / Otro / Autre</option></select></div>
-      <div class="fg"><label class="fl"><span data-lang="en" class="active">Technical Requirements / Message</span><span data-lang="es">Requisitos Técnicos / Mensaje</span><span data-lang="fr">Exigences Techniques / Message</span></label><textarea class="fta"></textarea></div>
-      <button class="fsub"><span data-lang="en" class="active">Send Enquiry</span><span data-lang="es">Enviar Solicitud</span><span data-lang="fr">Envoyer la Demande</span></button>
-    </div>
+    <ol class="timeline"><li><span class="ph">Phase 01</span><h3>Feasibility</h3><p>Analysis of the product, targets and site; layout and a technical-economic proposal.</p><span class="out">→ Proposal &amp; layout</span></li><li><span class="ph">Phase 02</span><h3>Engineering</h3><p>Process, mechanical, electrical and automation engineering by our Technical Office.</p><span class="out">→ Design approval</span></li><li><span class="ph">Phase 03</span><h3>Manufacturing</h3><p>Fabrication and machining with supplier quality control and factory acceptance tests.</p><span class="out">→ FAT</span></li><li><span class="ph">Phase 04</span><h3>Installation</h3><p>Assembly at the client&#x27;s plant, led and supervised by INCO engineers.</p><span class="out">→ Mechanical completion</span></li><li><span class="ph">Phase 05</span><h3>Commissioning</h3><p>Cold and hot tests, ramp-up to nominal speed and performance verification.</p><span class="out">→ SAT · acceptance</span></li><li><span class="ph">Phase 06</span><h3>Training &amp; support</h3><p>Operator and maintenance training, spare parts, remote and on-site support.</p><span class="out">→ Continuous</span></li></ol>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div>
-    <span class="logo-inco" style="font-size:28px">INCO</span>
-    <p class="ftag">S.A. de Ingeniería y Construcción Mecánica<br><span data-lang="en" class="active">Metallurgical process engineering since 1980.</span><span data-lang="es">Ingeniería de procesos metalúrgicos desde 1980.</span><span data-lang="fr">Ingénierie des procédés métallurgiques depuis 1980.</span></p>
+<section id="projects" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="eyebrow"><span class="n">05</span> Reference work</p><h2>Selected <em>projects</em>.</h2></div>
+      <p class="lede">Filter by process and metal. Open any project for its technical specification.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filters">
+      <div class="frow-f"><span class="flab">Process</span><div class="chips"><button type="button" class="chip" data-key="process" data-val="all" aria-pressed="true">All <sup></sup></button><button type="button" class="chip" data-key="process" data-val="painting" aria-pressed="false">Coil coating <sup></sup></button><button type="button" class="chip" data-key="process" data-val="levelling" aria-pressed="false">Tension levelling <sup></sup></button><button type="button" class="chip" data-key="process" data-val="pickling" aria-pressed="false">Pickling <sup></sup></button><button type="button" class="chip" data-key="process" data-val="annealing" aria-pressed="false">Annealing <sup></sup></button><button type="button" class="chip" data-key="process" data-val="casting" aria-pressed="false">Casting &amp; rolling <sup></sup></button><button type="button" class="chip" data-key="process" data-val="recycling" aria-pressed="false">Recycling <sup></sup></button><button type="button" class="chip" data-key="process" data-val="service" aria-pressed="false">Service centre <sup></sup></button></div></div>
+      <div class="frow-f"><span class="flab">Metal</span><div class="chips"><button type="button" class="chip" data-key="metal" data-val="all" aria-pressed="true">All <sup></sup></button><button type="button" class="chip" data-key="metal" data-val="steel" aria-pressed="false">Steel <sup></sup></button><button type="button" class="chip" data-key="metal" data-val="aluminium" aria-pressed="false">Aluminium <sup></sup></button><button type="button" class="chip" data-key="metal" data-val="copper" aria-pressed="false">Copper <sup></sup></button></div></div>
+    </div>
+    <div class="fstatus"><span id="fcount" aria-live="polite"></span><button type="button" id="freset" hidden>Clear filters</button></div>
+    <div class="pgrid" id="pgrid"><button type="button" class="pc" data-id="p01" data-process="levelling" data-metal="aluminium"><div class="duo"><img src="https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png" alt="" loading="lazy"></div><div class="meta"><span class="pr">Tension levelling</span><span>Aluminium</span></div><h3>Tension levelling line for architectural aluminium</h3><div class="key"><span>up to 1,600 mm</span><span>0.3–4.0 mm</span></div></button><button type="button" class="pc" data-id="p02" data-process="painting" data-metal="steel aluminium"><div class="duo"><img src="https://cdn.shortpixel.ai/spai/q_lossy+w_1200+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Coil coating</span><span>Steel / Aluminium</span></div><h3>Coil paint line for architecture and appliances</h3><div class="key"><span>up to 2,400 mm</span><span>20–180 m/min</span></div></button><button type="button" class="pc" data-id="p03" data-process="levelling" data-metal="copper"><div class="duo"><img src="https://almetals.com/getfile/d6492474-c916-4ee2-87ee-db33a0c7d203/Copper.aspx" alt="" loading="lazy"></div><div class="meta"><span class="pr">Tension levelling</span><span>Copper</span></div><h3>Tension levelling for copper electronic components</h3><div class="key"><span>100–650 mm</span><span>0.10–2.0 mm</span></div></button><button type="button" class="pc" data-id="p04" data-process="painting" data-metal="aluminium"><div class="duo"><img src="https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG" alt="" loading="lazy"></div><div class="meta"><span class="pr">Coil coating</span><span>Aluminium</span></div><h3>Paint line for aluminium coils</h3><div class="key"><span>up to 1,650 mm</span><span>40–120 m/min</span></div></button><button type="button" class="pc" data-id="p05" data-process="pickling" data-metal="steel"><div class="duo"><img src="https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Pickling</span><span>Steel</span></div><h3>Pickling line for narrow carbon-steel coils</h3><div class="key"><span>100–700 mm</span><span>1.5–6 mm</span></div></button><button type="button" class="pc" data-id="p06" data-process="annealing" data-metal="steel"><div class="duo"><img src="assets/img/bell-annealing.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Annealing</span><span>Steel</span></div><h3>Bell annealing section for a cold-rolling plant</h3><div class="key"><span>Bell annealing (HNX)</span><span>up to 32 t</span></div></button><button type="button" class="pc" data-id="p07" data-process="painting" data-metal="steel aluminium"><div class="duo"><img src="https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG" alt="" loading="lazy"></div><div class="meta"><span class="pr">Coil coating</span><span>Steel / Aluminium</span></div><h3>Paint line for galvanised, Aluzinc and aluminium</h3><div class="key"><span>Galvanised, Galvalume, aluminium</span><span>up to 1,800 mm</span></div></button><button type="button" class="pc" data-id="p08" data-process="casting" data-metal="aluminium"><div class="duo"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1000&q=80&fit=crop" alt="" loading="lazy"></div><div class="meta"><span class="pr">Casting &amp; rolling</span><span>Aluminium</span></div><h3>Melting and continuous casting — aluminium billet plant</h3><div class="key"><span>up to 30 t/h</span><span>1xxx, 3xxx, 5xxx, 6xxx, 8xxx</span></div></button><button type="button" class="pc" data-id="p09" data-process="casting" data-metal="aluminium copper"><div class="duo"><img src="https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png" alt="" loading="lazy"></div><div class="meta"><span class="pr">Casting &amp; rolling</span><span>Aluminium / Copper</span></div><h3>Continuous casting + 3-stand hot rolling tandem</h3><div class="key"><span>up to 8 m/min</span><span>3-stand tandem, 4-high</span></div></button><button type="button" class="pc" data-id="p10" data-process="service" data-metal="aluminium"><div class="duo"><img src="https://cdn.shortpixel.ai/spai/q_lossy+w_1200+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Service centre</span><span>Aluminium</span></div><h3>Aluminium disc blanking line</h3><div class="key"><span>80–600 mm</span><span>0.4–4.0 mm</span></div></button><button type="button" class="pc" data-id="p11" data-process="recycling" data-metal="aluminium"><div class="duo"><img src="https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Recycling</span><span>Aluminium</span></div><h3>Aluminium recycling plant</h3><div class="key"><span>up to 20 t/h</span><span>Mixed scrap, UBC, process scrap</span></div></button><button type="button" class="pc" data-id="p12" data-process="service" data-metal="steel aluminium"><div class="duo"><img src="https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg" alt="" loading="lazy"></div><div class="meta"><span class="pr">Service centre</span><span>Steel / Aluminium</span></div><h3>Service-centre lines — steel and aluminium</h3><div class="key"><span>up to 1,800 mm wide, 0.3–8 mm</span><span>±0.5 mm</span></div></button><p class="empty" id="fempty" hidden>No projects match this combination.</p></div>
   </div>
-  <div>
-    <div class="fcolt"><span data-lang="en" class="active">Navigation</span><span data-lang="es">Navegación</span><span data-lang="fr">Navigation</span></div>
-    <ul class="flinks">
-      <li><a href="#home"><span data-lang="en" class="active">Home</span><span data-lang="es">Inicio</span><span data-lang="fr">Accueil</span></a></li>
-      <li><a href="#about"><span data-lang="en" class="active">Company</span><span data-lang="es">Empresa</span><span data-lang="fr">Société</span></a></li>
-      <li><a href="#caps"><span data-lang="en" class="active">Capabilities</span><span data-lang="es">Capacidades</span><span data-lang="fr">Capacités</span></a></li>
-      <li><a href="#projects"><span data-lang="en" class="active">Projects</span><span data-lang="es">Proyectos</span><span data-lang="fr">Projets</span></a></li>
-      <li><a href="#contact"><span data-lang="en" class="active">Contact</span><span data-lang="es">Contacto</span><span data-lang="fr">Contact</span></a></li>
-    </ul>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="cinfo rv">
+        <p class="eyebrow"><span class="n">06</span> Contact</p>
+        <h2 style="margin:22px 0 24px">Tell us about your <em>process</em>.</h2>
+        <p class="lede">Share your requirements and our engineers will reply with an initial technical assessment.</p>
+        <dl>
+          <div><dt>Phone</dt><dd><a href="tel:+34932387960">+34 932 387 960</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:inco@saincome.es">inco@saincome.es</a></dd></div>
+          <div><dt>Barcelona · Head office</dt><dd>Calle Tuset 20-24, 08006 Barcelona, Spain</dd></div>
+          <div><dt>Geneva · European office</dt><dd>26 Boulevard des Philosophes, 1205 Geneva, Switzerland</dd></div>
+        </dl>
+      </div>
+      <form class="form rv" id="enquiry" data-key="" novalidate>
+        <input type="hidden" name="subject" value="New enquiry — INCO website">
+        <input type="hidden" name="from_name" value="INCO website">
+        <input type="hidden" name="language" value="en">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="fld"><label for="f-name">Name <i aria-hidden="true">*</i></label><input id="f-name" name="name" required autocomplete="name"></div>
+        <div class="fld"><label for="f-company">Company <i aria-hidden="true">*</i></label><input id="f-company" name="company" required autocomplete="organization"></div>
+        <div class="fld"><label for="f-email">Email <i aria-hidden="true">*</i></label><input id="f-email" type="email" name="email" required autocomplete="email"></div>
+        <div class="fld"><label for="f-country">Country</label><input id="f-country" name="country" autocomplete="country-name"></div>
+        <div class="fld"><label for="f-process">Process</label><select id="f-process" name="process"><option value="">Select…</option><option value="painting">Coil coating</option><option value="levelling">Tension levelling</option><option value="pickling">Pickling</option><option value="annealing">Annealing</option><option value="casting">Casting &amp; rolling</option><option value="recycling">Recycling</option><option value="service">Service centre</option><option value="rolling">Rolling mill</option><option value="other">Other</option></select></div>
+        <div class="fld"><label for="f-metal">Metal</label><select id="f-metal" name="metal"><option value="">Select…</option><option value="steel">Steel</option><option value="aluminium">Aluminium</option><option value="copper">Copper</option><option value="other">Other</option></select></div>
+        <div class="tech">
+          <span class="tl">Optional · technical parameters</span>
+          <div class="fld"><label for="f-width">Strip width (mm)</label><input id="f-width" name="strip_width_mm" inputmode="decimal"></div>
+          <div class="fld"><label for="f-thick">Thickness (mm)</label><input id="f-thick" name="thickness_mm" inputmode="decimal"></div>
+          <div class="fld"><label for="f-cap">Capacity (t/year)</label><input id="f-cap" name="capacity_t_year" inputmode="decimal"></div>
+        </div>
+        <div class="fld full"><label for="f-msg">Project description <i aria-hidden="true">*</i></label><textarea id="f-msg" name="message" required></textarea></div>
+        <label class="consent"><input type="checkbox" name="privacy_consent" value="yes" required> <span>I agree that INCO processes my data to answer this enquiry, as described in the <a href="legal/index.html#privacy">privacy policy</a>.</span></label>
+        <div class="fsend"><button class="btn btn-dark" type="submit">Send enquiry <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h13M9 3l5 5-5 5"/></svg></button><p class="fmsg" role="status"></p></div>
+      </form>
+    </div>
   </div>
-  <div>
-    <div class="fcolt">Contact</div>
-    <ul class="flinks">
-      <li><a href="tel:+34932387960">+34 932 387 960</a></li>
-      <li><a href="mailto:inco@saincome.es">inco@saincome.es</a></li>
-      <li><a href="#">Barcelona, Spain</a></li>
-      <li><a href="#">Geneva, Switzerland</a></li>
-    </ul>
+</section>
+</main>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftop">
+      <div>
+        <a class="brand" href="index.html" aria-label="INCO"><b>INCO</b><i aria-hidden="true"></i><span>Engineering &amp;<br>Mechanical Construction</span></a>
+        <p class="ftag">Metallurgical process engineering since 1980.</p>
+      </div>
+      <div><h4>Site</h4><ul><li><a href="#company">Company</a></li><li><a href="#capabilities">Capabilities</a></li><li><a href="#process">Process</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Contact</h4><ul>
+        <li><a href="tel:+34932387960">+34 932 387 960</a></li>
+        <li><a href="mailto:inco@saincome.es">inco@saincome.es</a></li>
+      </ul></div>
+      <div><h4>Offices</h4>
+        <address><b>Barcelona</b>Calle Tuset 20-24, 08006 Barcelona, Spain</address>
+        <address><b>Geneva</b>26 Boulevard des Philosophes, 1205 Geneva, Switzerland</address>
+      </div>
+    </div>
+    <!-- Certification seals: PENDING CONFIRMATION of INCO's actual certificates -->
+    <div class="certs"><span class="ct">Certifications</span><div class="seal" title="ISO 9001"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#E5485C" stroke-width=".8" stroke-dasharray="1.5 2"/><text x="24" y="21" text-anchor="middle" font-family="Plex Mono, monospace" font-size="6.5" fill="currentColor" letter-spacing="1.2">ISO</text><text x="24" y="31" text-anchor="middle" font-family="Plex, sans-serif" font-size="10" font-weight="500" fill="currentColor">9001</text></svg><span><b>ISO 9001</b>Quality management</span></div><div class="seal" title="ISO 14001"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#E5485C" stroke-width=".8" stroke-dasharray="1.5 2"/><text x="24" y="21" text-anchor="middle" font-family="Plex Mono, monospace" font-size="6.5" fill="currentColor" letter-spacing="1.2">ISO</text><text x="24" y="31" text-anchor="middle" font-family="Plex, sans-serif" font-size="10" font-weight="500" fill="currentColor">14001</text></svg><span><b>ISO 14001</b>Environmental management</span></div><div class="seal" title="ISO 45001"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#E5485C" stroke-width=".8" stroke-dasharray="1.5 2"/><text x="24" y="21" text-anchor="middle" font-family="Plex Mono, monospace" font-size="6.5" fill="currentColor" letter-spacing="1.2">ISO</text><text x="24" y="31" text-anchor="middle" font-family="Plex, sans-serif" font-size="10" font-weight="500" fill="currentColor">45001</text></svg><span><b>ISO 45001</b>Health &amp; safety</span></div><div class="seal" title="CE"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width=".8"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#E5485C" stroke-width=".8" stroke-dasharray="1.5 2"/><text x="24" y="29.5" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="17" font-weight="400" fill="currentColor" letter-spacing="1">CE</text></svg><span><b>CE</b>Machinery Directive</span></div></div>
+    <div class="fbot">
+      <span>© 2026 INCO — S.A. de Ingeniería y Construcción Mecánica. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="legal/index.html#legal">Legal notice</a><a href="legal/index.html#privacy">Privacy</a><a href="legal/index.html#cookies">Cookies</a></nav>
+    </div>
   </div>
 </footer>
-<div class="fbot">
-  <div class="fcp">2026 © INCO — S.A. de Ingeniería y Construcción Mecánica</div>
-  <div class="fleg">
-    <a href="#"><span data-lang="en" class="active">Privacy Policy</span><span data-lang="es">Política de Privacidad</span><span data-lang="fr">Politique de Confidentialité</span></a>
-    <a href="#"><span data-lang="en" class="active">Legal Notice</span><span data-lang="es">Aviso Legal</span><span data-lang="fr">Mentions Légales</span></a>
-  </div>
-</div>
 
-<!-- MODAL -->
-<div class="mover" id="mov" onclick="cmo(event)">
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
   <div class="mbox">
-    <button class="mcls" onclick="cm()">✕</button>
-    <img id="mi" src="" alt="" class="mimg">
+    <div class="duo"><img src="" alt=""></div>
     <div class="mbody">
-      <div class="mtag" id="mtg"></div>
-      <div class="mtit" id="mti"></div>
-      <div class="mdesc" id="mde"></div>
-      <ul class="mspecs" id="msp"></ul>
-      <div class="mvimeo" id="mvi"></div>
+      <button type="button" class="mclose" aria-label="Close"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13"/></svg></button>
+      <p class="meta"></p>
+      <h3 id="m-title"></h3>
+      <p class="mdesc"></p>
+      <table class="specs"><tbody></tbody></table>
+      <a class="btn btn-dark mcta" href="#contact">Enquire about a similar line <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
     </div>
   </div>
 </div>
-
-<script>
-var lang='en';
-function sl(l){lang=l;document.querySelectorAll('[data-lang]').forEach(e=>e.classList.toggle('active',e.dataset.lang===l));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===l));document.documentElement.lang=l;}
-var sls=document.querySelectorAll('#ss img'),ci=0;
-setInterval(()=>{sls[ci].classList.remove('on');ci=(ci+1)%sls.length;sls[ci].classList.add('on');},4800);
-function tmenu(){document.getElementById('nl').classList.toggle('open');document.getElementById('ls').classList.toggle('open');}
-function nc(el){document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));el.classList.add('active');document.getElementById('nl').classList.remove('open');}
-function fcat(cat,btn){document.querySelectorAll('.catbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.pc').forEach(c=>{var cats=c.dataset.cats||'';c.classList.toggle('on',cat==='all'||cats.split(' ').includes(cat));});}
-function cap(k){return k.charAt(0).toUpperCase()+k.slice(1);}
-function om(card){
-  var c=cap(lang);
-  document.getElementById('mi').src=card.dataset.img||card.querySelector('img').src;
-  document.getElementById('mtg').textContent=card.dataset['tag'+c]||card.dataset.tagEn||'';
-  document.getElementById('mti').textContent=card.dataset['title'+c]||card.dataset.titleEn||'';
-  document.getElementById('mde').textContent=card.dataset['desc'+c]||card.dataset.descEn||'';
-  var sp=(card.dataset['specs'+c]||card.dataset.specsEn||'').split('|').filter(Boolean);
-  document.getElementById('msp').innerHTML=sp.map(s=>'<li>'+s+'</li>').join('');
-  var vm=card.dataset.vimeo;
-  var lbl={en:'Watch Video on Vimeo',es:'Ver Vídeo en Vimeo',fr:'Voir la Vidéo sur Vimeo'}[lang];
-  document.getElementById('mvi').innerHTML=vm?'<a href="https://vimeo.com/'+vm+'" target="_blank" rel="noopener">'+lbl+'</a>':'';
-  document.getElementById('mov').classList.add('open');document.body.style.overflow='hidden';
-}
-function cm(){document.getElementById('mov').classList.remove('open');document.body.style.overflow='';}
-function cmo(e){if(e.target===document.getElementById('mov'))cm();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')cm();});
-var obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}}),{threshold:.1});
-document.querySelectorAll('.rev').forEach(r=>obs.observe(r));
-var secs=[...document.querySelectorAll('section[id]')];
-window.addEventListener('scroll',()=>{var f='home';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)f=s.id;});document.querySelectorAll('.nav-links a').forEach(a=>{var h=(a.getAttribute('href')||'').replace('#','');a.classList.toggle('active',h===f);});},{passive:true});
-</script>
+<script>window.INCO_I18N={"showing": "Showing {n} of {t} projects", "showingOne": "Showing 1 of {t} projects", "formProto": "Prototype: the form is not connected yet. Your message was not sent.", "formSending": "Sending…", "formOk": "Thank you. Your enquiry has been sent — our engineers will be in touch shortly.", "formErr": "Something went wrong. Please try again or write to inco@saincome.es."};window.INCO_PROJECTS=[{"id": "p01", "img": "https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png", "title": "Tension levelling line for architectural aluminium", "desc": "Custom tension levelling line for aluminium coils destined for architectural cladding, reaching the flatness tolerances demanded by high-end façade systems. Delivered turnkey: decoiler, entry loop, multi-roll leveller, exit loop and recoiler.", "tag": "Tension levelling · Aluminium · Architecture", "specs": [["Strip width", "up to 1,600 mm"], ["Thickness", "0.3–4.0 mm"], ["Speed", "60–120 m/min"], ["Alloys", "1xxx, 3xxx, 5xxx"], ["Applications", "Cladding, façades, roofing"], ["Supply", "Full turnkey, PLC automation"]], "formProcess": "levelling"}, {"id": "p02", "img": "https://cdn.shortpixel.ai/spai/q_lossy+w_1200+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg", "title": "Coil paint line for architecture and appliances", "desc": "High-speed coil paint line for galvanised steel and aluminium strip. Handles polyester, PVDF and plastisol systems with rapid colour change and convection/IR oven sections. Full turnkey supply.", "tag": "Coil coating · Steel / Aluminium · Architecture · Appliances", "specs": [["Strip width", "up to 2,400 mm"], ["Speed", "20–180 m/min"], ["Materials", "Galvanised, Galvalume, aluminium"], ["Paints", "Polyester, PVDF, plastisol, epoxy"], ["Ovens", "Convection + IR"]], "formProcess": "painting"}, {"id": "p03", "img": "https://almetals.com/getfile/d6492474-c916-4ee2-87ee-db33a0c7d203/Copper.aspx", "title": "Tension levelling for copper electronic components", "desc": "Precision tension levelling line for thin copper and copper-alloy strip used in connectors, lead frames and PCB components, where flatness and surface quality are critical.", "tag": "Tension levelling · Copper · Electronics", "specs": [["Strip width", "100–650 mm"], ["Thickness", "0.10–2.0 mm"], ["Speed", "30–100 m/min"], ["Materials", "Copper, brass, bronze"], ["Applications", "PCB, connectors, lead frames"]], "formProcess": "levelling"}, {"id": "p04", "img": "https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG", "title": "Paint line for aluminium coils", "desc": "Dedicated aluminium coil coating line with integrated pre-treatment and quick colour change, configurable as one-coat/one-bake or two-coat/two-bake.", "tag": "Coil coating · Aluminium · Architecture", "specs": [["Strip width", "up to 1,650 mm"], ["Speed", "40–120 m/min"], ["Paints", "Polyester, PVDF, acrylic"], ["Configuration", "1C1B or 2C2B"], ["Pre-treatment", "Included"]], "formProcess": "painting"}, {"id": "p05", "img": "https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg", "title": "Pickling line for narrow carbon-steel coils", "desc": "Hydrochloric-acid pickling line for narrow hot-rolled carbon-steel strip, removing scale ahead of cold rolling, with acid regeneration included.", "tag": "Pickling · Steel · Steel processing", "specs": [["Strip width", "100–700 mm"], ["Entry thickness", "1.5–6 mm"], ["Acid", "HCl, with regeneration"], ["Speed", "30–120 m/min"]], "formProcess": "pickling"}, {"id": "p06", "img": "assets/img/bell-annealing.jpg", "title": "Bell annealing section for a cold-rolling plant", "desc": "Controlled-atmosphere (HNX) bell annealing integrated within a cold-rolling complex for carbon-steel strip, with programmable heating and cooling cycles for flexible multi-grade production.", "tag": "Annealing · Steel · Steel processing", "specs": [["Furnace type", "Bell annealing (HNX)"], ["Coil weight", "up to 32 t"], ["Grades", "CQ, DQ, DDQ, EDDQ"], ["Cooling", "Controlled forced convection"]], "formProcess": "annealing"}, {"id": "p07", "img": "https://www.sa-inco.com/en_US/media/b920b3982726a905c67471fb184bdf6e.cms_1_1024_1_1024__/line-paint-galvanized-steel-coil,-aluminum-aluzinc.JPG", "title": "Paint line for galvanised, Aluzinc and aluminium", "desc": "Multi-substrate coil coating line with horizontal two-roll coaters, sized for galvanised steel, Aluzinc and aluminium strip.", "tag": "Coil coating · Steel / Aluminium · Construction", "specs": [["Materials", "Galvanised, Galvalume, aluminium"], ["Width", "up to 1,800 mm"], ["Speed", "30–120 m/min"], ["Coater", "Horizontal 2-roll"], ["Paints", "Polyester, SMP, PVDF"]], "formProcess": "painting"}, {"id": "p08", "img": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1000&q=80&fit=crop", "title": "Melting and continuous casting — aluminium billet plant", "desc": "Complete melting and continuous-casting plant for aluminium billets, with rotary degassing and ceramic-foam filtration for consistent metal quality.", "tag": "Casting & rolling · Aluminium · Primary aluminium", "specs": [["Capacity", "up to 30 t/h"], ["Alloys", "1xxx, 3xxx, 5xxx, 6xxx, 8xxx"], ["Billet diameter", "75–400 mm"], ["Degassing", "Rotary"], ["Filtration", "Ceramic foam"]], "formProcess": "casting"}, {"id": "p09", "img": "https://www.intocast.de/wp-content/uploads/2023/03/into-products-refractories-aluminium.png", "title": "Continuous casting + 3-stand hot rolling tandem", "desc": "Integrated continuous casting and hot rolling for non-ferrous metals: a twin-roll or belt caster feeding an inline 3-stand, 4-high hot tandem — coils or sheets in a single energy-efficient flow.", "tag": "Casting & rolling · Aluminium / Copper · Non-ferrous rolling", "specs": [["Casting speed", "up to 8 m/min"], ["Hot mill", "3-stand tandem, 4-high"], ["Entry gauge", "8–25 mm"], ["Exit gauge", "2–8 mm"], ["Width", "up to 1,400 mm"]], "formProcess": "casting"}, {"id": "p10", "img": "https://cdn.shortpixel.ai/spai/q_lossy+w_1200+to_webp+ret_img/alucoatuniversal.com/wp-content/uploads/2025/03/Types-of-aluminum-coil-coating.jpg", "title": "Aluminium disc blanking line", "desc": "High-output blanking line producing aluminium discs from coil, with electrostatic oiling and automatic stacking.", "tag": "Service centre · Aluminium · Cookware · Packaging", "specs": [["Disc diameter", "80–600 mm"], ["Thickness", "0.4–4.0 mm"], ["Alloys", "1xxx, 3xxx, 5xxx"], ["Output", "up to 200 discs/min"]], "formProcess": "service"}, {"id": "p11", "img": "https://www.meadmetals.com/hubfs/230823_MEAD-CAMP_Blog4Images_1200x628_2.jpg", "title": "Aluminium recycling plant", "desc": "Recycling plant for mixed scrap, used beverage cans and process scrap, with rotary-drum and reverberatory furnaces, dross treatment and emission control.", "tag": "Recycling · Aluminium · Secondary aluminium", "specs": [["Capacity", "up to 20 t/h"], ["Input", "Mixed scrap, UBC, process scrap"], ["Furnaces", "Rotary drum + reverberatory"], ["Dross treatment", "Included"]], "formProcess": "recycling"}, {"id": "p12", "img": "https://www.clecim.com/wp-content/uploads/2025/08/clecim-lines-stainless-annealing-picking-lines-3.jpg", "title": "Service-centre lines — steel and aluminium", "desc": "Slitting and cut-to-length lines for steel and aluminium service centres, from mild steel to advanced high-strength grades.", "tag": "Service centre · Steel / Aluminium · Service centres", "specs": [["Slitting", "up to 1,800 mm wide, 0.3–8 mm"], ["Cut-to-length tolerance", "±0.5 mm"], ["Speed", "up to 200 m/min"], ["Materials", "Mild steel, AHSS, aluminium"]], "formProcess": "service"}];</script>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
