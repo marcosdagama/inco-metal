@@ -356,6 +356,15 @@ section{padding:var(--sec) 0}
   .fig-cap span:last-child{display:none}
   .hdr .brand span,.hdr .brand i{display:none}
 }
+@media (max-width:860px){
+  .certs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px;align-items:start}
+  .certs .ct{grid-column:1/-1;margin:0}
+  .seal{align-items:center}
+}
+@media (max-width:380px){
+  .seal svg{width:40px;height:40px}
+  .seal span{font-size:10px}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}

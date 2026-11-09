@@ -86,7 +86,7 @@ def seal(cert):
         num = cert["code"].split()[-1]
         inner = ('<text x="24" y="21" text-anchor="middle" font-family="Plex Mono, monospace" font-size="6.5" '
                  'fill="currentColor" letter-spacing="1.2">ISO</text>'
-                 f'<text x="24" y="31" text-anchor="middle" font-family="Plex, sans-serif" font-size="10" '
+                 f'<text x="24" y="31" text-anchor="middle" font-family="Plex, sans-serif" font-size="{10 if len(num) <= 4 else 8.4}" '
                  f'font-weight="500" fill="currentColor">{num}</text>')
     return ('<svg viewBox="0 0 48 48" aria-hidden="true">'
             '<circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" stroke-width=".8"/>'
